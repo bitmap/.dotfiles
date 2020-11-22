@@ -5,11 +5,11 @@
 	logallrefupdates = true
 	ignorecase = true
 	precomposeunicode = true
+[status]
+	showUntrackedFiles = no
 [remote "origin"]
-	url = https://github.com/bitmap/dotfiles.git
+	url = git@github.com:bitmap/dotfiles.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
-[status]
-	showUntrackedFiles = no
