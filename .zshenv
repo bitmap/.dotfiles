@@ -1,1 +1,2 @@
-export PATH=$HOME/bin:$HOME/go/bin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/go/bin:$PATH
+source "$HOME/.cargo/env"
