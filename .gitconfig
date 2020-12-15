@@ -3,7 +3,7 @@
   email = 1258606+bitmap@users.noreply.github.com
 [alias]
   it = !git init && git commit -m "root" --allow-empty
-  got = pull --rebase origin master
+  got = pull --rebase origin
   please = push --force-with-lease
   forget = checkout --
   amend = commit --amend
@@ -16,27 +16,20 @@
 [core]
   excludesfile = ~/.gitignore
   pager = diff-so-fancy | less --tabs=4 -RFX
-	ignorecase = false
+  ignorecase = false
 [color]
   ui = true
 [color "branch"]
   current = yellow reverse
   local = yellow
-  remote = green
-[color "diff"]
-  meta = yellow
-  frag = magenta bold
-  old = red bold
-  new = green bold
-  commit = yellow bold
-  whitespace = red reverse
+  remote = cyan
 [color "status"]
   added = green
   changed = yellow
   untracked = cyan
   unmerged = yellow
 [pull]
-	rebase = false
+  rebase = false
 [push]
   default = simple
 [credential]
@@ -44,4 +37,4 @@
 [include]
   gitlab = .gitlab/.gitconfig
 [merge]
-	ff = only
+  ff = only
