@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+lsof -n -i4TCP:"$@" | grep LISTEN | tr -s " " | cut -f 2 -d " " | xargs kill -9;
