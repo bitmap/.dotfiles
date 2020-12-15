@@ -38,6 +38,3 @@ export NVM_DIR=~/.nvm
 
 # plugins
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# path
-export PATH=$HOME/bin:$HOME/go/bin:$HOME/.cargo/bin:$PATH
