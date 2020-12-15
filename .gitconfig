@@ -1,0 +1,47 @@
+[user]
+  name = Cabe Branson
+  email = 1258606+bitmap@users.noreply.github.com
+[alias]
+  it = !git init && git commit -m "root" --allow-empty
+  got = pull --rebase origin master
+  please = push --force-with-lease
+  forget = checkout --
+  amend = commit --amend
+  recommit = commit --amend --no-edit
+  uncommit = reset --soft HEAD^
+  fucked = reset --hard HEAD
+  hoard = stash --include-untracked
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lc = log --abbrev-commit HEAD^..HEAD
+[core]
+  excludesfile = ~/.gitignore
+  pager = diff-so-fancy | less --tabs=4 -RFX
+	ignorecase = false
+[color]
+  ui = true
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  commit = yellow bold
+  whitespace = red reverse
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = cyan
+  unmerged = yellow
+[pull]
+	rebase = false
+[push]
+  default = simple
+[credential]
+  helper = osxkeychain
+[include]
+  gitlab = .gitlab/.gitconfig
+[merge]
+	ff = only
