@@ -1,0 +1,67 @@
+# git stats
+function git-stats() {
+  ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
+
+  local -a FLAGS
+  local GIT_LOCATION=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
+
+  # symbols
+  typeset -A symbols
+  symbols[stash]="≡"
+  symbols[merge]="!"
+  symbols[staged]="±"
+  symbols[change]="*"
+  symbols[untracked]="?"
+
+  # stashed
+  if git rev-parse --verify refs/stash &>/dev/null; then
+    FLAGS+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
+  fi;
+
+  # merging
+  local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
+  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
+    FLAGS+="%F{9}${symbols[merge]}%f"
+  fi
+
+  # staged
+  if ! git diff --cached --quiet 2> /dev/null; then
+    FLAGS+="%F{10}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
+  fi
+
+  # modified
+  if ! git diff --quiet 2> /dev/null; then
+    FLAGS+="%F{11}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
+  fi
+
+  # untracked
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    FLAGS+="%F{14}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+  fi
+
+  local -a GIT_INFO
+  GIT_INFO+=( "%F{8}%f" )
+  GIT_INFO+=( "%F{13}$GIT_LOCATION" )
+  [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)FLAGS}" )
+  echo "${(j: :)GIT_INFO}"
+}
+
+# prompt
+setopt prompt_subst
+precmd() {
+  # Print a newline before the prompt, unless it's the
+  # first prompt in the process.
+
+  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
+    NEW_LINE_BEFORE_PROMPT=1
+  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
+    echo ""
+  fi
+}
+
+NL=$'\n'
+CHAR='λ'
+PROMPT='%F{12}%0~%f '
+PROMPT+='$(git-stats)'
+PROMPT+='${NL}%F{8}${CHAR} %f'
+RPROMPT=''
