@@ -1,0 +1,3 @@
+if [[ -e $1 ]]; then
+  mv $1 $1.backup && echo "$1.backup created"
+fi

@@ -1,13 +1,15 @@
-function dotfiles {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-}
+# source functions
+fpath=( ~/.zsh_funcs "${fpath[@]}" )
 
-function md {
-  command mkdir -p "$1" && cd "$1"
-}
-
+# source aliases and prompt
 source $HOME/.zsh_aliases
 source $HOME/.zsh_prompt
+
+# autoload functions
+autoload -Uz dotfiles md ip killport pushup extract backup
+
+# enable zsh colors
+autoload -U colors && colors
 
 # case-insensitive globbing
 setopt NO_CASE_GLOB
@@ -15,12 +17,8 @@ setopt NO_CASE_GLOB
 # automatic cd
 setopt AUTO_CD
 
-# autocorrect
-setopt CORRECT
-setopt CORRECT_ALL
-
-# enable zsh colors
-autoload -U colors && colors
+## alias completeion
+setopt COMPLETE_ALIASES
 
 # autocompletion
 autoload -Uz compinit && compinit
@@ -30,8 +28,6 @@ zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 ## case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
-## alias completeion
-setopt COMPLETE_ALIASES
 
 # This loads nvm
 export NVM_DIR=~/.nvm
