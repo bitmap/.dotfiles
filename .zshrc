@@ -1,39 +1,36 @@
 # source functions
-fpath=( ~/.zsh/funcs "${fpath[@]}" )
+fpath=( "$HOME/.config/zsh/funcs" "${fpath[@]}" )
 
-# source aliases and prompt
-source $HOME/.zsh/aliases
-source $HOME/.zsh/prompt
-
-# autoload functions
+# autoload custom functions
 autoload -Uz dotfiles md ip killport pushup extract backup
+
+# allow prompt expansion
+autoload -Uz promptinit && promptinit
+setopt prompt_subst
 
 # enable zsh colors
 autoload -U colors && colors
 
-# case-insensitive globbing
-setopt NO_CASE_GLOB
-
-# automatic cd
-setopt AUTO_CD
-
-## alias completeion
-setopt COMPLETE_ALIASES
-
 # autocompletion
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
-## partial completion suggestions
-zstyle ':completion:*' list-suffixes
-zstyle ':completion:*' expand prefix suffix
-## case insensitive path-completion
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+
+# alias completeion
+setopt COMPLETE_ALIASES
+
+# case-insensitive globbing
+setopt NO_CASE_GLOB
+
+# better cd
+setopt AUTO_CD
+setopt AUTO_PUSHD
 
 # This loads nvm
-export NVM_DIR=~/.nvm
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# plugins
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source prompt, aliases, and plugins
+source $HOME/.config/zsh/prompt
+source $HOME/.config/zsh/aliases
+source $HOME/.config/zsh/plugins

@@ -1,9 +1,3 @@
-# dotfile management
-alias da="dotfiles add"
-alias dc="dotfiles commit"
-alias dp="dotfiles push"
-alias ds="dotfiles status"
-
 # better ls
 alias ls="ls -G"
 alias la="ls -a"
@@ -79,7 +73,7 @@ alias p="python"
 alias r="rustup"
 alias c="cargo"
 
-#suffixed aliases
+# suffixed aliases
 alias -s js="node"
 alias -s ts="typescript"
 alias -s py="python3"
@@ -89,10 +83,10 @@ alias -s git="git clone"
 alias -s {md,json,css,html}=code
 
 # misc
-alias zrc="source ~/.zshrc"
+alias zrc="source $HOME/.zshrc"
 alias shoryuken="echo '→↓↘'"
 
-# macOS aliasses
+# macOS aliases
 if [[ $OSTYPE == darwin* ]]; then
   # restart
   alias ugh="osascript -e 'tell app \"System Events\" to restart'"
