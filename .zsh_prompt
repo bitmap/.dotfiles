@@ -1,5 +1,15 @@
-# git stats
-function git-stats() {
+setopt prompt_subst
+
+precmd() {
+  # Print a newline before the prompt unless it's the first prompt in the process.
+  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
+    NEW_LINE_BEFORE_PROMPT=1
+  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
+    echo ""
+  fi
+
+  typeset -g GIT_STATUS=''
+
   ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
 
   local -a FLAGS
@@ -43,25 +53,12 @@ function git-stats() {
   GIT_INFO+=( "%F{8}%f" )
   GIT_INFO+=( "%F{13}$GIT_LOCATION" )
   [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)FLAGS}" )
-  echo "${(j: :)GIT_INFO}"
+  GIT_STATUS="${(j: :)GIT_INFO}"
 }
 
-# prompt
-setopt prompt_subst
-precmd() {
-  # Print a newline before the prompt, unless it's the
-  # first prompt in the process.
+PROMPT_CHAR='λ'
 
-  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
-    NEW_LINE_BEFORE_PROMPT=1
-  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
-    echo ""
-  fi
-}
-
-NL=$'\n'
-CHAR='λ'
 PROMPT='%F{12}%0~%f '
-PROMPT+='$(git-stats)'
-PROMPT+='${NL}%F{8}${CHAR} %f'
-RPROMPT=''
+PROMPT+='${GIT_STATUS}'
+PROMPT+=$'\n'
+PROMPT+='%F{8}${PROMPT_CHAR} %f'
