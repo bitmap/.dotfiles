@@ -1,3 +1,11 @@
+function dotfiles {
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
+function md {
+  command mkdir -p "$1" && cd "$1"
+}
+
 source $HOME/.zsh_aliases
 source $HOME/.zsh_prompt
 
