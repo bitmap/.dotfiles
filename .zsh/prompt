@@ -1,5 +1,10 @@
 setopt prompt_subst
 
+# disable zsh-syntax-highlighting underline
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+
 precmd() {
   # Print a newline before the prompt unless it's the first prompt in the process.
   if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
