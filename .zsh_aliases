@@ -3,7 +3,6 @@ alias ls="ls -G"
 alias la="ls -a"
 alias ll="ls -l"
 alias lla="ls -la"
-alias lls='ls -l | sort -n +3 | tail -10'
 
 # better mkdir
 alias mkdir="mkdir -pv"
@@ -11,22 +10,17 @@ alias mkdir="mkdir -pv"
 # quick clear
 alias x="clear"
 
-# interactive/verbose tasks
-alias remove="rm -ivr"
+# rimraf
 alias rimraf="rm -rf"
-alias copy="cp -iv"
-alias move="mv -iv"
-alias link="ln -iv"
 
 # git aliases (git 2.23+)
+alias g--="git checkout --"
 alias g="git"
 alias ga="git add"
 alias gb="git branch"
 alias gc="git commit"
 alias gca="git commit --amend"
 alias gco="git switch"
-alias g--="git checkout --"
-alias gcom="git checkout master"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gf="git fetch"
@@ -45,10 +39,10 @@ alias grbs="git rebase --skip"
 alias grc="git recommit"
 alias grs="git restore --staged"
 alias gs="git status"
-alias gss="git status --short"
 alias gsh="git stash --include-untracked"
-alias gshp="git stash pop"
 alias gshd="git stash drop"
+alias gshp="git stash pop"
+alias gss="git status --short"
 alias gsw="git switch"
 alias guc="git uncommit"
 alias gx="git fucked"
@@ -78,13 +72,18 @@ alias python="python3"
 alias pip="pip3"
 alias p="python"
 
+# rust aliases
+alias r="rustup"
+alias c="cargo"
+
 #suffixed aliases
 alias -s js="node"
+alias -s ts="typescript"
 alias -s py="python3"
 alias -s git="git clone"
 
 # bulk association
-alias -s {md,json,css,ts,html}=code
+alias -s {md,json,css,html}=code
 
 # misc
 alias zrc="source ~/.zshrc"
@@ -96,8 +95,8 @@ if [[ $OSTYPE == darwin* ]]; then
   alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
   # sleep
-  alias zzz="pmset displaysleepnow"
-  alias ZZZ="pmset sleepnow"
+  alias z="pmset displaysleepnow"
+  alias zz="pmset sleepnow"
 
   # flush dns cache
   alias flush='dscacheutil -flushcache'
@@ -108,6 +107,4 @@ if [[ $OSTYPE == darwin* ]]; then
 
   alias hub="chrome https://github.com"
   alias gmail="chrome https://gmail.com"
-
-  alias .files="cd ~/.dotfiles && code ."
 fi
