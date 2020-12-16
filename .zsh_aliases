@@ -1,3 +1,10 @@
+# dotfile management
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias da="dotfiles add"
+alias dc="dotfiles commit"
+alias dp="dotfiles push"
+alias ds="dotfiles status"
+
 # better ls
 alias ls="ls -G"
 alias la="ls -a"
