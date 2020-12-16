@@ -1,9 +1,9 @@
 # source functions
-fpath=( ~/.zsh_funcs "${fpath[@]}" )
+fpath=( ~/.zsh/funcs "${fpath[@]}" )
 
 # source aliases and prompt
-source $HOME/.zsh_aliases
-source $HOME/.zsh_prompt
+source $HOME/.zsh/aliases
+source $HOME/.zsh/prompt
 
 # autoload functions
 autoload -Uz dotfiles md ip killport pushup extract backup
@@ -35,4 +35,5 @@ export NVM_DIR=~/.nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # plugins
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

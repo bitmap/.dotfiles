@@ -62,3 +62,5 @@ PROMPT='%F{12}%0~%f '
 PROMPT+='${GIT_STATUS}'
 PROMPT+=$'\n'
 PROMPT+='%F{8}${PROMPT_CHAR} %f'
+
+RPROMPT=''
