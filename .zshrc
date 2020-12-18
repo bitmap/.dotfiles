@@ -25,11 +25,6 @@ setopt NO_CASE_GLOB
 setopt AUTO_CD
 setopt AUTO_PUSHD
 
-# This loads nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 # source prompt, aliases, and plugins
 source $HOME/.config/zsh/prompt
 source $HOME/.config/zsh/aliases
