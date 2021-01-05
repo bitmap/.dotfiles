@@ -44,7 +44,7 @@ precmd() {
 
   # untracked
   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    FLAGS+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+    FLAGS+="%F{4}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
   fi
 
   local -a GIT_INFO
@@ -56,7 +56,7 @@ precmd() {
 
 PROMPT_CHAR='λ'
 
-PROMPT='%F{4}%0~%f '
+PROMPT='%F{6}%0~%f '
 PROMPT+='${GIT_STATUS}'
 PROMPT+=$'\n'
 PROMPT+='%F{8}${PROMPT_CHAR} %f'
