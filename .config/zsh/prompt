@@ -6,6 +6,9 @@ precmd() {
     echo ""
   fi
 
+  # set tab title to current dir
+  print -Pn "\e]0;%~\a"
+
   typeset -g GIT_STATUS=''
 
   ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
@@ -44,7 +47,7 @@ precmd() {
 
   # untracked
   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    FLAGS+="%F{4}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+    FLAGS+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
   fi
 
   local -a GIT_INFO
@@ -56,7 +59,7 @@ precmd() {
 
 PROMPT_CHAR='λ'
 
-PROMPT='%F{6}%0~%f '
+PROMPT='%F{4}%0~%f '
 PROMPT+='${GIT_STATUS}'
 PROMPT+=$'\n'
 PROMPT+='%F{8}${PROMPT_CHAR} %f'
