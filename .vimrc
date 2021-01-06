@@ -6,16 +6,13 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-
-Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-surround'
-Plug 'mattn/emmet-vim'
-Plug 'preservim/nerdtree'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
-
+  Plug 'itchyny/lightline.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'preservim/nerdtree'
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'dense-analysis/ale'
 call plug#end()
 
 " utf-8
@@ -45,19 +42,15 @@ set backspace=indent,eol,start
 " enable mouse
 set mouse=a
 
+" show filename
+set title
+
 " fix annoying cursor hop
 set nostartofline
 set ruler
 
-" always show mode
-set showmode
-set showcmd
-
 " highlight matching brackets
 set showmatch
-
-" show filename
-set title
 
 " show line numbers
 set number
@@ -93,10 +86,30 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-" status line
-" let g:lightline = { 'colorscheme': 'bitmap' }
+" hide status line
+set shortmess=F
 set laststatus=2
 set noshowmode
+
+" lightline
+let g:lightline = {
+\ 'colorscheme': 'bitmap',
+\ 'active': {
+\   'left': [ ['mode', 'paste'],
+\             ['readonly', 'filename', 'modified'] ],
+\   'right': [ [ 'lineinfo' ], ['percent'] ]
+\ },
+\ 'component': {
+\   'readonly': '%{&filetype=="help"?"":&readonly?"x":""}',
+\   'modified': '%{&filetype=="help"?"":&modified?"*":&modifiable?"":"-"}',
+\ },
+\ 'component_visible_condition': {
+\   'readonly': '(&filetype!="help"&& &readonly)',
+\   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+\ },
+\ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
+\ }
 
 " set undo directory
 set undodir=~/.vim/undo
