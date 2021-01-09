@@ -10,20 +10,20 @@ let g:colors_name="bitmap"
 " Vim UI
 hi Normal              ctermfg=15
 hi Cursor              ctermfg=7   ctermbg=1
-hi CursorLine          ctermbg=0   cterm=NONE
+hi CursorLine                      ctermbg=0     cterm=NONE
 hi MatchParen          ctermfg=15  ctermbg=8     cterm=NONE
 hi Pmenu               ctermfg=15  ctermbg=0
-hi PmenuThumb          ctermbg=7
+hi PmenuThumb                      ctermbg=7
 hi PmenuSBar           ctermbg=8
 hi PmenuSel            ctermfg=0   ctermbg=4
-hi ColorColumn         ctermbg=0
+hi ColorColumn                     ctermbg=0
 hi SpellBad            ctermfg=1   ctermbg=NONE  cterm=underline
 hi SpellCap            ctermfg=10  ctermbg=NONE  cterm=underline
 hi SpellRare           ctermfg=11  ctermbg=NONE  cterm=underline
 hi SpellLocal          ctermfg=13  ctermbg=NONE  cterm=underline
 hi NonText             ctermfg=8
 hi LineNr              ctermfg=8   ctermbg=0
-hi CursorLineNr        ctermfg=3   ctermbg=0     cterm=NONE
+hi CursorLineNr        ctermfg=7   ctermbg=0     cterm=NONE
 hi Visual              ctermfg=0   ctermbg=8
 hi IncSearch           ctermfg=0   ctermbg=13    cterm=NONE
 hi Search              ctermfg=0   ctermbg=10
@@ -62,26 +62,26 @@ hi! link TabLineFill   StatusLineNC
 hi! link SpecialKey    NonText
 
 " Syntax
-hi Comment             ctermfg=8
+hi Comment             ctermfg=7
 hi Constant            ctermfg=14  cterm=NONE
-hi String              ctermfg=2
-hi Character           ctermfg=2
+hi String              ctermfg=3
+hi Character           ctermfg=11
 hi Number              ctermfg=10
 hi Float               ctermfg=10
 hi Boolean             ctermfg=6
 hi Identifier          ctermfg=12  cterm=NONE
-hi Function            ctermfg=11
+hi Function            ctermfg=2
 hi Statement           ctermfg=5
-hi Operator            ctermfg=8
+hi Operator            ctermfg=7
 hi Keyword             ctermfg=4
-hi PreProc             ctermfg=7
-hi Include             ctermfg=5
-hi Define              ctermfg=5
+hi PreProc             ctermfg=3
+hi Include             ctermfg=1
+hi Define              ctermfg=13
 hi Type                ctermfg=4
 hi StorageClass        ctermfg=4
 hi Structure           ctermfg=4
 hi Typedef             ctermfg=4
-hi Special             ctermfg=3
+hi Special             ctermfg=7
 hi Delimiter           ctermfg=3
 hi Underlined          ctermfg=4   cterm=underline
 hi Ignore              ctermfg=0
