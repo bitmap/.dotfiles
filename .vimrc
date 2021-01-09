@@ -42,8 +42,9 @@ set backspace=indent,eol,start
 " enable mouse
 set mouse=a
 
-" show filename
+" configure title
 set title
+set titlestring=%f\ –\ vim
 
 " fix annoying cursor hop
 set nostartofline
