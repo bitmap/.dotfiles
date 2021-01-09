@@ -7,7 +7,7 @@ precmd() {
   fi
 
   # set tab title to current dir
-  print -Pn "\e]0;%~\a"
+  print -Pn "\e]0;%1~\a"
 
   typeset -g GIT_STATUS=''
 
