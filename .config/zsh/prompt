@@ -1,5 +1,5 @@
 precmd() {
-  # Print a newline before the prompt unless it's the first prompt in the process.
+  # print a newline before the prompt unless it's the first prompt in the process.
   if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
     NEW_LINE_BEFORE_PROMPT=1
   elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
@@ -7,13 +7,24 @@ precmd() {
   fi
 
   # set tab title to current dir
-  print -Pn "\e]0;%1~\a"
+  print -Pn "\e]0;%2~\a"
 
   typeset -g GIT_STATUS=''
+  typeset -g DEV_ENV=''
 
+  # display node version
+  if [[ -f package.json ]]; then
+    DEV_ENV="%F{7} node %F{2}$(nvm current)%f"
+  fi
+
+  # display rust version
+  if [[ -f Cargo.toml ]]; then
+    DEV_ENV="%F{7} rust %F{9}v$(rustc --version | cut -d' ' -f2)%f"
+  fi
+
+  # git prompt
   ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
-
-  local -a FLAGS
+  local -a GIT_FLAGS
   local GIT_LOCATION=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
 
   # symbols
@@ -26,41 +37,43 @@ precmd() {
 
   # stashed
   if git rev-parse --verify refs/stash &>/dev/null; then
-    FLAGS+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
+    GIT_FLAGS+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
   fi;
 
   # merging
   local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
   if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    FLAGS+="%F{1}${symbols[merge]}%f"
+    GIT_FLAGS+="%F{1}${symbols[merge]}%f"
   fi
 
   # staged
   if ! git diff --cached --quiet 2> /dev/null; then
-    FLAGS+="%F{2}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
+    GIT_FLAGS+="%F{2}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
   fi
 
   # modified
   if ! git diff --quiet 2> /dev/null; then
-    FLAGS+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
+    GIT_FLAGS+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
   fi
 
   # untracked
   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    FLAGS+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+    GIT_FLAGS+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%F{8}%f" )
-  GIT_INFO+=( "%F{5}$GIT_LOCATION" )
-  [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)FLAGS}" )
-  GIT_STATUS="${(j: :)GIT_INFO}"
+  GIT_INFO+=( "%F{5}  $GIT_LOCATION")
+  [[ ${#GIT_FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)GIT_FLAGS}" )
+
+  GIT_STATUS=${(j: :)GIT_INFO}
 }
 
+# prompt
 PROMPT_CHAR='λ'
+PROMPT_USER='%F{1}$USER@%m '
 
-PROMPT='%F{4}%0~%f '
-PROMPT+='${GIT_STATUS}'
+PROMPT='%F{4}%0~%f'
+PROMPT+='${DEV_ENV}${GIT_STATUS}'
 PROMPT+=$'\n'
 PROMPT+='%F{8}${PROMPT_CHAR} %f'
 
