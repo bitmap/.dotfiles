@@ -1,6 +1,10 @@
 [user]
   name = Cabe Branson
   email = 1258606+bitmap@users.noreply.github.com
+[core]
+  ignorecase = false
+  editor = vim
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
   it = !git init && git commit -m "root" --allow-empty
   got = pull --rebase origin
@@ -13,10 +17,7 @@
   hoard = stash --include-untracked
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   lc = log --abbrev-commit HEAD^..HEAD
-[core]
-  excludesfile = ~/.gitignore
-  pager = diff-so-fancy | less --tabs=4 -RFX
-  ignorecase = false
+  last = cat-file commit HEAD
 [color]
   ui = true
 [color "branch"]
@@ -28,6 +29,8 @@
   changed = 3
   untracked = 6
   unmerged = 1
+[commit]
+  verbose = true
 [pull]
   rebase = false
 [push]
@@ -36,5 +39,3 @@
   helper = osxkeychain
 [include]
   gitlab = .gitlab/.gitconfig
-[merge]
-  ff = only

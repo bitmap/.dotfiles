@@ -6,8 +6,7 @@
 Desktop.ini
 Thumbs.db
 
-# env
-.env
+# environment variable files
 .env*
 
 # Node.js
@@ -18,22 +17,24 @@ dist
 build
 out
 .next
+.nuxt
 .cache
 
 # Test coverage dirs
 coverage
 .coverage
 
-# Vim
-*.swp
-*.vi
-
 # Log files
+logs
 *.log
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Visual Studio Code
 .vscode
+
+# Vim
+*.swp
+*.vi
 
 # Homebrew lock file
 Brewfile.lock.json
