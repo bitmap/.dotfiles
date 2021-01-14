@@ -1,31 +1,11 @@
-precmd() {
-  # print a newline before the prompt unless it's the first prompt in the process.
-  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
-    NEW_LINE_BEFORE_PROMPT=1
-  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
-    echo ""
-  fi
+git_info() {
+  typeset -g _git_info=''
 
-  # set tab title to current dir
-  print -Pn "\e]0;%2~\a"
-
-  typeset -g GIT_STATUS=''
-  typeset -g DEV_ENV=''
-
-  # display node version
-  if [[ -f package.json ]]; then
-    DEV_ENV="%F{7} node %F{2}$(nvm current)%f"
-  fi
-
-  # display rust version
-  if [[ -f Cargo.toml ]]; then
-    DEV_ENV="%F{7} rust %F{9}v$(rustc --version | cut -d' ' -f2)%f"
-  fi
-
-  # git prompt
+  # return if not a git repo
   ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
-  local -a GIT_FLAGS
-  local GIT_LOCATION=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
+
+  local -a flags
+  local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
 
   # symbols
   typeset -A symbols
@@ -37,44 +17,74 @@ precmd() {
 
   # stashed
   if git rev-parse --verify refs/stash &>/dev/null; then
-    GIT_FLAGS+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
+    flags+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
   fi;
 
   # merging
   local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
   if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    GIT_FLAGS+="%F{1}${symbols[merge]}%f"
+    flags+="%F{1}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | wc -l | sed 's/^ *//')%f"
   fi
 
   # staged
   if ! git diff --cached --quiet 2> /dev/null; then
-    GIT_FLAGS+="%F{2}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
+    flags+="%F{2}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
   fi
 
   # modified
   if ! git diff --quiet 2> /dev/null; then
-    GIT_FLAGS+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
+    flags+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
   fi
 
   # untracked
   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    GIT_FLAGS+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+    flags+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%F{5}  $GIT_LOCATION")
-  [[ ${#GIT_FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)GIT_FLAGS}" )
+  GIT_INFO+=( "%F{5}  $branch")
+  [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)flags}" )
 
-  GIT_STATUS=${(j: :)GIT_INFO}
+  _git_info=${(j: :)GIT_INFO}
 }
 
-# prompt
-PROMPT_CHAR='λ'
-PROMPT_USER='%F{1}$USER@%m '
+env_info() {
+  typeset -g _env_info=''
 
-PROMPT='%F{4}%0~%f'
-PROMPT+='${DEV_ENV}${GIT_STATUS}'
-PROMPT+=$'\n'
-PROMPT+='%F{8}${PROMPT_CHAR} %f'
+  # display node version
+  if [[ -f package.json ]]; then
+    _env_info="%F{7} node %F{2}$(nvm current)%f"
+  fi
 
-RPROMPT=''
+  # display rust version
+  if [[ -f Cargo.toml ]]; then
+    _env_info="%F{7} rust %F{9}v$(rustc --version | cut -d' ' -f2)%f"
+  fi
+}
+
+precmd() {
+  # print a newline before the prompt unless it's the first prompt in the process.
+  if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
+    NEW_LINE_BEFORE_PROMPT=1
+  elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
+    echo ""
+  fi
+  # set tab title to current dir
+  print -Pn "\e]0;%2~\a"
+
+  env_info
+  git_info
+}
+
+preexec() {
+  # set tab title to current dir and process
+  print -Pn "\e]0;%2~ ($1)\a"
+}
+
+prompt() {
+  PS1=$'%F{4}%0~%f${_env_info}${_git_info}\n%F{8}λ %f'
+  PS2=$'%F{8}> %f'
+  RPROMPT=''
+}
+
+prompt
