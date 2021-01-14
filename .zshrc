@@ -1,29 +1,25 @@
+export EDITOR=$(which vim)
+
 # source functions
 fpath=( "$HOME/.config/zsh/funcs" "${fpath[@]}" )
 
 # autoload custom functions
 autoload -Uz dotfiles md ip killport pushup extract backup
 
-# allow prompt expansion
-autoload -Uz promptinit && promptinit
-setopt prompt_subst
+# options
+setopt prompt_subst     # allow prompt expansion
+setopt completealiases  # alias completion
+setopt extendedglob     # allow regex globbing
+setopt nocaseglob       # case-insensitive globbing
+setopt autocd           # better cd
+setopt autopushd        # auto add to dir stack
+setopt nobeep           # shut up
+setopt numericglobsort  # sort numerically
 
-# enable zsh colors
-autoload -U colors && colors
-
-# autocompletion
+# autocomplete
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
-
-# alias completeion
-setopt COMPLETE_ALIASES
-
-# case-insensitive globbing
-setopt NO_CASE_GLOB
-
-# better cd
-setopt AUTO_CD
-setopt AUTO_PUSHD
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # source prompt, aliases, and plugins
 source $HOME/.config/zsh/prompt
