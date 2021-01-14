@@ -1,5 +1,6 @@
 " VIM custom sytax
 highlight clear
+
 if exists("syntax_on")
   syntax reset
 endif
@@ -69,7 +70,7 @@ hi Character           ctermfg=11
 hi Number              ctermfg=10
 hi Float               ctermfg=10
 hi Boolean             ctermfg=6
-hi Identifier          ctermfg=12  cterm=NONE
+hi Identifier          ctermfg=2   cterm=NONE
 hi Function            ctermfg=2
 hi Statement           ctermfg=5
 hi Operator            ctermfg=7
