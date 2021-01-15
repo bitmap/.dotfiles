@@ -1,13 +1,20 @@
+# this loads nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-source "$HOME/.cargo/env"
+# add Cargo's bin directory to $PATH
+[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-typeset -U PATH path
+# variables
+export EDITOR=$(which vim)
+export PAGER=$(which less)
 
-path=(
-  "$HOME/go/bin"
-  "$path[@]"
-)
-
-export PATH
+# colored man
+export LESS='-RFXn'
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline

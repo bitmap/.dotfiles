@@ -1,6 +1,6 @@
-export EDITOR=$(which vim)
-
-# source functions
+# configure path
+typeset -gU path fpath
+path=( "/usr/local/opt/coreutils/libexec/gnubin" $path)
 fpath=( "$HOME/.config/zsh/funcs" "${fpath[@]}" )
 
 # autoload custom functions
@@ -18,7 +18,7 @@ setopt numericglobsort  # sort numerically
 
 # autocomplete
 autoload -Uz compinit && compinit
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu yes select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # source prompt, aliases, and plugins
