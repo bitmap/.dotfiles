@@ -15,9 +15,8 @@
   uncommit = reset --soft HEAD^
   fucked = reset --hard HEAD
   hoard = stash --include-untracked
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lc = log --abbrev-commit HEAD^..HEAD
-  last = cat-file commit HEAD
+  lg = log --color --graph --decorate --pretty=shortlog --abbrev-commit --max-count=25
+  last = log --abbrev-commit HEAD^..HEAD
 [color]
   ui = true
 [color "branch"]
@@ -39,3 +38,5 @@
   helper = osxkeychain
 [include]
   gitlab = .gitlab/.gitconfig
+[pretty]
+	shortlog = format:%C(yellow)%h %Cgreen[%cr] %C(blue)<%an>%Creset -%Creset %<(50,trunc)%s%C(white)%d%Creset
