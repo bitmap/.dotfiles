@@ -40,3 +40,5 @@
   gitlab = .gitlab/.gitconfig
 [pretty]
 	shortlog = format:%C(yellow)%h %Cgreen[%cr] %C(blue)<%an>%Creset -%Creset %<(50,trunc)%s%C(white)%d%Creset
+[init]
+	defaultBranch = main
