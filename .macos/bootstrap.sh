@@ -6,22 +6,31 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until bootstrap has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-print -P "%F{3}\nInstalling Xcode command line tools...%f"
-xcode-select --install
+print -P "%F{3}\nInstalling Xcode command line tools...%f";
+xcode-select --install;
 
-print -P "%F{3}\nInstalling Homebrew...%f"
-echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+print -P "%F{3}\nInstalling Homebrew...%f";
+echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)";
 
-print -P "%F{3}\nInstalling Apps and dev tools via Homebrew...%f"
-brew bundle --file $HOME/.macos/Brewfile
+print -P "%F{3}\nInstalling Apps and dev tools via Homebrew...%f";
+brew bundle --file $HOME/.macos/Brewfile;
 
-print -P "%F{3}\nInstalling NVM...%f"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+print -P "%F{3}\nInstalling asdf...%f";
+git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf;
 
-print -P "%F{3}\nInstalling Rust...%f"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+echo "%F{3}\nInstalling asdf plugins...%f";
+source $HOME/.asdf/asdf.sh;
+asdf plugin add deno;
+asdf plugin add golang;
+asdf plugin add nodejs;
+asdf plugin add python;
+asdf plugin add rust;
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring;
 
-print -P "%F{3}\nSetting macOS Preferences...%f"
-source $HOME/.macos/defaults.sh
+echo "%F{3}\nInstalling dev tools...%f";
+asdf install
 
-print -P "%F{2}\nFinished macOS bootstrap. Please restart.%f"
+print -P "%F{3}\nSetting macOS Preferences...%f";
+source $HOME/.macos/defaults.sh;
+
+print -P "%F{2}\nFinished macOS bootstrap. Please restart.%f";

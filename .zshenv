@@ -1,10 +1,3 @@
-# this loads nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# add Cargo's bin directory to $PATH
-[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-
 # variables
 export EDITOR=$(which vim)
 export PAGER=$(which less)

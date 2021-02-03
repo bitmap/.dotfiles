@@ -22,6 +22,9 @@ zstyle ':completion:*' menu yes select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # source prompt, aliases, and plugins
-source $HOME/.config/zsh/prompt
-source $HOME/.config/zsh/aliases
-source $HOME/.config/zsh/plugins
+. $HOME/.config/zsh/prompt
+. $HOME/.config/zsh/aliases
+. $HOME/.config/zsh/plugins
+
+# source asdf
+. $HOME/.asdf/asdf.sh

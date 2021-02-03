@@ -53,7 +53,7 @@ env_info() {
 
   # display node version
   if [[ -f package.json ]]; then
-    _env_info="%F{7} node %F{2}$(nvm current)%f"
+    _env_info="%F{7} node %F{2}$(node --version)%f"
   fi
 
   # display rust version
