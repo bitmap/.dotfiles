@@ -17,6 +17,7 @@
   hoard = stash --include-untracked
   lg = log --color --graph --decorate --pretty=shortlog --abbrev-commit --max-count=25
   last = log --abbrev-commit HEAD^..HEAD
+  upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
 [color]
   ui = true
 [color "branch"]
