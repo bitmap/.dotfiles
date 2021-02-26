@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 git_info() {
   typeset -g _git_info=''
 
@@ -9,16 +11,31 @@ git_info() {
 
   # symbols
   typeset -A symbols
+  symbols[rebase]="~"
+  symbols[remote]="✓"
+  symbols[local]="•"
+  symbols[behind]="↓"
+  symbols[ahead]="↑"
   symbols[stash]="≡"
   symbols[merge]="!"
   symbols[staged]="±"
   symbols[change]="*"
   symbols[untracked]="?"
 
+  # behind
+  if [[ -n "$(git rev-list HEAD..@{u} 2> /dev/null)" ]]; then
+    flags+="%F{1}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f";
+  fi
+
+  # ahead
+  if [[ -n "$(git rev-list @{u}..HEAD 2> /dev/null)" ]]; then
+    flags+="%F{2}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)%f";
+  fi
+
   # stashed
   if git rev-parse --verify refs/stash &>/dev/null; then
     flags+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f";
-  fi;
+  fi
 
   # merging
   local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
@@ -42,8 +59,25 @@ git_info() {
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%F{5}  $branch")
+
+  GIT_INFO+=("%F{8} ")
+  # upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} |  sed 's;/.*;;')
+
+  # rebasing
+  if [[ -n "$(git status | grep "rebasing" 2> /dev/null)" ]]; then
+    GIT_INFO+="%F{1}${symbols[rebase]}$branch %f";
+  # upstream
+  elif [[ -n "$(git show-ref origin/$branch 2> /dev/null)" ]]; then
+    GIT_INFO+="%F{6}%F{5}$branch %F{2}${symbols[remote]}%f";
+  # local
+  else
+    GIT_INFO+="%F{5}$branch %F{3}${symbols[local]}%f";
+  fi
+
+
+
   [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)flags}" )
+
 
   _git_info=${(j: :)GIT_INFO}
 }
@@ -53,12 +87,12 @@ env_info() {
 
   # display node version
   if [[ -f package.json ]]; then
-    _env_info="%F{7} node %F{2}$(node --version)%f"
+    _env_info="%F{8} ◆ %F{2}$(node --version)%f"
   fi
 
   # display rust version
   if [[ -f Cargo.toml ]]; then
-    _env_info="%F{7} rust %F{9}v$(rustc --version | cut -d' ' -f2)%f"
+    _env_info="%F{8} ◆ %F{9}v$(rustc --version | cut -d' ' -f2)%f"
   fi
 }
 
@@ -72,7 +106,7 @@ precmd() {
   # set tab title to current dir
   print -Pn "\e]0;%2~\a"
 
-  env_info
+  # env_info
   git_info
 }
 
@@ -82,8 +116,8 @@ preexec() {
 }
 
 prompt() {
-  PS1=$'%F{4}%0~%f${_env_info}${_git_info}\n%F{8}λ %f'
-  PS2=$'%F{8}> %f'
+  PS1=$'%F{4}%0~%f${_git_info}\n%F{8}λ %f'
+  PS2=$'%F{8}→ %f'
   RPROMPT=''
 }
 
