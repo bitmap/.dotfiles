@@ -18,9 +18,20 @@ git_info() {
   symbols[ahead]="↑"
   symbols[stash]="≡"
   symbols[merge]="!"
-  symbols[staged]="±"
+  symbols[staged]="+"
   symbols[change]="*"
   symbols[untracked]="?"
+
+  # rebasing
+  if [[ -n "$(git status | grep "rebasing" 2> /dev/null)" ]]; then
+    flags+="%F{9}${symbols[rebase]}%f";
+  # upstream
+  elif [[ -n "$(git show-ref origin/$branch 2> /dev/null)" ]]; then
+    flags+="%F{10}${symbols[remote]}%f";
+  # local
+  else
+    flags+="%F{11}${symbols[local]}%f";
+  fi
 
   # behind
   if [[ -n "$(git rev-list HEAD..@{u} 2> /dev/null)" ]]; then
@@ -60,24 +71,11 @@ git_info() {
 
   local -a GIT_INFO
 
-  GIT_INFO+=("%F{8} ")
-  # upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} |  sed 's;/.*;;')
+  #upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} |  sed 's;/.*;;')
 
-  # rebasing
-  if [[ -n "$(git status | grep "rebasing" 2> /dev/null)" ]]; then
-    GIT_INFO+="%F{1}${symbols[rebase]}$branch %f";
-  # upstream
-  elif [[ -n "$(git show-ref origin/$branch 2> /dev/null)" ]]; then
-    GIT_INFO+="%F{6}%F{5}$branch %F{2}${symbols[remote]}%f";
-  # local
-  else
-    GIT_INFO+="%F{5}$branch %F{3}${symbols[local]}%f";
-  fi
+  GIT_INFO+=("%F{8}  %F{5}$branch%f")
 
-
-
-  [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=( "${(j: :)flags}" )
-
+  [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=("${(j: :)flags}")
 
   _git_info=${(j: :)GIT_INFO}
 }
@@ -116,7 +114,7 @@ preexec() {
 }
 
 prompt() {
-  PS1=$'%F{4}%0~%f${_git_info}\n%F{8}λ %f'
+  PS1=$'%F{4}%2~%f${_git_info}\n%F{8}→ %f'
   PS2=$'%F{8}→ %f'
   RPROMPT=''
 }
