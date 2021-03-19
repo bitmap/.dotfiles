@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # better ls
 alias ls="ls --color -F"
 alias ll="ls -lh"
@@ -8,48 +10,30 @@ alias dots="dotfiles"
 # quick clear
 alias x="clear"
 
-# rimraf
-alias rimraf="rm -rf"
-
-# git aliases (git 2.23+)
+# git aliases
 alias g="git"
-alias g-="git checkout --"
 alias ga="git add"
 alias gb="git branch"
 alias gc="git commit"
-alias gca="git commit --amend"
-alias gco="git switch"
+alias gco="git checkout"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gg="git push"
-alias ggf="git please"
+alias ggf="git push --force-with-lease"
 alias gl="git lg"
-alias glc="git lc"
-alias gm="git merge"
-alias gn="git switch -c"
+alias gn="git checkout -b"
 alias gp="git pull"
 alias gr="git reset HEAD --"
 alias grb="git rebase -i"
 alias grbc="git rebase --continue"
 alias grbs="git rebase --skip"
-alias grc="git recommit"
-alias grs="git restore --staged"
 alias gs="git status"
-alias gsh="git stash --include-untracked"
-alias gss="git status --short"
-alias guc="git uncommit"
-alias gx="git fucked"
 
-# node / npm aliases
+# npm aliases
 alias n="node"
 alias ni="npm install"
 alias nid="npm install --save-dev"
-alias nci="npm ci"
 alias nu="npm uninstall"
-alias nx="npm cache clean && rm -rf node_modules && npm install"
-alias nln="npm link"
-alias nls="npm list --depth=0"
-alias nlsg="npm list --depth=0 --global "
 
 # npm run shortcuts
 alias ns="npm start"
@@ -79,7 +63,6 @@ alias -s {md,json,css,html}=code
 
 # misc
 alias zrc="source $HOME/.zshrc"
-alias shoryuken="echo '→↓↘'"
 
 # macOS aliases
 if [[ $OSTYPE == darwin* ]]; then

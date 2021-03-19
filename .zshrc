@@ -1,6 +1,6 @@
 # configure path
 typeset -gU path fpath
-path=( "/usr/local/opt/coreutils/libexec/gnubin" $path)
+path=( "/usr/local/opt/coreutils/libexec/gnubin" $path )
 fpath=( "$HOME/.config/zsh/funcs" "${fpath[@]}" )
 
 # autoload custom functions
