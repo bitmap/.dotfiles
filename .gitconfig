@@ -15,7 +15,7 @@
   uncommit = reset --soft HEAD^
   fucked = reset --hard HEAD
   hoard = stash --include-untracked
-  lg = log --color --graph --decorate --pretty=shortlog --abbrev-commit --max-count=25
+  lg = -c core.pager='less -S' log --color --graph --decorate --pretty=shortlog --abbrev-commit
   last = log --abbrev-commit HEAD^..HEAD
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
 [color]
@@ -37,9 +37,7 @@
   default = simple
 [credential]
   helper = osxkeychain
-[include]
-  gitlab = .gitlab/.gitconfig
 [pretty]
-	shortlog = format:%C(yellow)%h %Cgreen[%cr] %C(blue)<%an>%Creset -%Creset %<(50,trunc)%s%C(white)%d%Creset
+  shortlog = format:%C(3)%h %C(2)[%cr] %C(4)<%an>%C(reset) -%C(reset) %s%C(auto)%d%C(reset)
 [init]
-	defaultBranch = main
+  defaultBranch = main
