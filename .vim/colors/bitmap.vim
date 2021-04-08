@@ -65,9 +65,9 @@ hi! link SpecialKey    NonText
 " Syntax
 hi Comment             ctermfg=7
 hi Constant            ctermfg=14  cterm=NONE
-hi String              ctermfg=3
+hi String              ctermfg=11
 hi Character           ctermfg=11
-hi Number              ctermfg=10
+hi Number              ctermfg=3
 hi Float               ctermfg=10
 hi Boolean             ctermfg=6
 hi Identifier          ctermfg=2   cterm=NONE
@@ -77,7 +77,7 @@ hi Operator            ctermfg=7
 hi Keyword             ctermfg=4
 hi PreProc             ctermfg=3
 hi Include             ctermfg=13
-hi Define              ctermfg=13
+hi Define              ctermfg=5
 hi Type                ctermfg=4
 hi StorageClass        ctermfg=4
 hi Structure           ctermfg=4
