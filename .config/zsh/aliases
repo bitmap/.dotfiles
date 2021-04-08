@@ -11,7 +11,6 @@ alias dots="dotfiles"
 alias x="clear"
 
 # git aliases
-alias g="git"
 alias ga="git add"
 alias gb="git branch"
 alias gc="git commit"
@@ -30,23 +29,19 @@ alias grbs="git rebase --skip"
 alias gs="git status"
 
 # npm aliases
-alias n="node"
 alias ni="npm install"
 alias nid="npm install --save-dev"
 alias nu="npm uninstall"
-
-# npm run shortcuts
 alias ns="npm start"
 alias nt="npm test"
 alias nr="npm run"
 alias nb="npm run build"
-alias nl="npm run lint"
 alias nd="npm run dev"
 
 # python aliases
+alias p="python3"
 alias python="python3"
 alias pip="pip3"
-alias p="python"
 
 # rust aliases
 alias r="rustup"
@@ -74,12 +69,5 @@ if [[ $OSTYPE == darwin* ]]; then
   alias zz="pmset sleepnow"
 
   # flush dns cache
-  alias flush='dscacheutil -flushcache'
-
-  # open slack
-  alias slack="open -a /Applications/Slack.app"
-  alias chrome="open -a /Applications/Google\ Chrome.app"
-
-  alias hub="chrome https://github.com"
-  alias gmail="chrome https://gmail.com"
+  alias flushdns='dscacheutil -flushcache'
 fi
