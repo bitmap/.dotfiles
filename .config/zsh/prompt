@@ -114,6 +114,6 @@ preexec() {
 }
 
 # prompt
-PS1=$'%F{4}%2~%f${_git_info}\n%F{8}→ %f'
+PS1=$'%F{4}%2~%f${_git_info}\n%F{8}λ %f'
 PS2=$'%F{8}→ %f'
 RPROMPT=''
