@@ -1,5 +1,5 @@
-deno 1.7.1
-golang 1.15.7
-nodejs 14.15.4
-python 3.9.1
-rust 1.49.0
+deno 1.9.0
+golang 1.16.3
+nodejs 14.16.1
+python 3.9.4
+rust 1.51.0
