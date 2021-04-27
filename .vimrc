@@ -6,7 +6,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-surround'
   Plug 'preservim/nerdtree'
   Plug 'terryma/vim-multiple-cursors'
@@ -87,33 +86,29 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
-" hide status line
-set shortmess=F
-set laststatus=2
-set noshowmode
-
-" lightline
-let g:lightline = {
-\ 'colorscheme': 'bitmap',
-\ 'active': {
-\   'left': [ ['mode', 'paste'],
-\             ['readonly', 'filename', 'modified'] ],
-\   'right': [ [ 'lineinfo' ], ['percent'] ]
-\ },
-\ 'component': {
-\   'readonly': '%{&filetype=="help"?"":&readonly?"x":""}',
-\   'modified': '%{&filetype=="help"?"":&modified?"*":&modifiable?"":"-"}',
-\ },
-\ 'component_visible_condition': {
-\   'readonly': '(&filetype!="help"&& &readonly)',
-\   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-\ },
-\ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-\ }
-
 " set undo directory
 set undodir=~/.vim/undo
 
 " remap Esc to jj
 inoremap jj <ESC>
+
+" statusline
+set laststatus=2
+set noshowmode
+set shortmess=
+set statusline=
+set statusline+=%4*\ %<%t\                               " file path
+set statusline+=%3*%{&modified?'\*\ ':''}                " modified
+set statusline+=%3*%{&readonly?'\\ ':''}                " read-only
+set statusline+=%=                                       " right side
+set statusline+=%1*\ %{&filetype}\                       " filetype
+set statusline+=%1*\ %{''.(&fenc!=''?&fenc:&enc).''}\    " encoding
+set statusline+=%1*\ %{&ff}\                             " file format
+set statusline+=%1*\ %l:%c\                              " line and col
+set statusline+=%1*\ %p%%\                               " percent
+
+set statusline+=%5*%{(mode()==#'n')?'\ NORMAL\ ':''}
+set statusline+=%6*%{(mode()==#'i')?'\ INSERT\ ':''}
+set statusline+=%7*%{(mode()==#'R')?'\ REPLACE\ ':''}
+set statusline+=%8*%{(mode()==?'v')?'\ VISUAL\ ':''}
+set statusline+=%9*%{(mode()==#'c')?'\ COMMAND\ ':''}
