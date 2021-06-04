@@ -17,7 +17,7 @@ print -P "%F{3}\nInstalling Homebrew...%f"
 echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 print -P "%F{3}\nInstalling Apps and dev tools via Homebrew...%f"
-brew bundle --file $HOME/.macos/Brewfile
+brew bundle --file $HOME/.dotfiles/macos/Brewfile
 
 print -P "%F{3}\nInstalling asdf...%f"
 git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
@@ -34,6 +34,6 @@ echo "%F{3}\nInstalling dev tools...%f"
 asdf install
 
 print -P "%F{3}\nSetting macOS Preferences...%f"
-source $HOME/.macos/defaults.sh
+source $HOME/.dotfiles/macos/defaults.sh
 
 print -P "%F{2}\nFinished macOS bootstrap. Please restart.%f"
