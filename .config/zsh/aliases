@@ -1,8 +1,22 @@
 #!/bin/zsh
 
 # better ls
-alias ls="ls --color -F"
+case `uname` in
+  Darwin)
+    # use the gnu coreutils ls if available
+    gls -d . &>/dev/null 2>&1 && alias ls='gls -F --color' || alias ls='ls -FG'
+    ;;
+  Linux)
+    alias ls='ls -F --color'
+    ;;
+esac
+
+alias lsa="ls -a"
 alias ll="ls -lh"
+alias lla="ls -lha"
+
+# vim-style quit
+alias :q='exit'
 
 # dots
 alias dots="dotfiles"
@@ -46,7 +60,7 @@ alias c="cargo"
 
 # suffixed aliases
 alias -s js="node"
-alias -s ts="typescript"
+alias -s ts="deno run"
 alias -s py="python3"
 alias -s git="git clone"
 
@@ -57,7 +71,7 @@ alias -s {md,json,css,html}=code
 alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
-if [[ $OSTYPE == darwin* ]]; then
+if [[ `uname` == "Darwin" ]]; then
   # restart
   alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
