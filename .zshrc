@@ -1,17 +1,10 @@
 # set config paths
 zconfig=$HOME/.config/zsh
-zfunc=$zconfig/zfunc
-
-# configure fpath
-fpath=($zfunc $fpath)
-
-# autoload custom functions
-for func in $^zfunc/*(N-.:t); autoload -Uz $func
 
 # source config files
 . $zconfig/aliases
-. $zconfig/prompt
 . $zconfig/plugins
+. $zconfig/prompt
 
 # options
 setopt prompt_subst    # allow prompt expansion
@@ -28,6 +21,13 @@ setopt numericglobsort # sort numerically
 autoload -Uz compinit && compinit -i
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# configure zsh function path
+zfunc=$zconfig/zfunc
+fpath=($zfunc $fpath)
+
+# autoload custom functions
+for func in $^zfunc/*(N-.:t); autoload -Uz $func
 
 # source asdf
 [ -f $HOME/.asdf/asdf.sh ] && . $HOME/.asdf/asdf.sh

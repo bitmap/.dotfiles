@@ -3,7 +3,7 @@
 # better ls
 case `uname` in
   Darwin)
-    # use the gnu coreutils ls if available
+    # use the GNU coreutils ls if available
     gls -d . &>/dev/null 2>&1 && alias ls='gls -F --color' || alias ls='ls -FG'
     ;;
   Linux)

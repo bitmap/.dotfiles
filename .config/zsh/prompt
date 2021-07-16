@@ -1,79 +1,83 @@
 #!/bin/zsh
 
 git_info() {
-  typeset -g _git_info=''
+  typeset -g _git_info=""
 
   # return if not a git repo
   ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 && return
 
   local -a flags
-  local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
+  local branch=$(git rev-parse --abbrev-ref HEAD)
+  local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
+
+  local function lc() {
+    wc -l | sed 's/^ *//'
+  }
 
   # symbols
   typeset -A symbols
+  symbols[stash]="≡"
   symbols[rebase]="~"
-  symbols[remote]="✓"
+  symbols[origin]="•"
   symbols[local]="•"
+  symbols[diverged]="↓↑"
   symbols[behind]="↓"
   symbols[ahead]="↑"
-  symbols[stash]="≡"
   symbols[merge]="!"
   symbols[staged]="+"
   symbols[change]="*"
   symbols[untracked]="?"
 
+    # stashed
+  if git rev-parse --verify refs/stash &>/dev/null; then
+    flags+="%F{8}${symbols[stash]}$(git stash list | lc)%f"
+  fi
+
   # rebasing
   if [[ -n "$(git status | grep "rebasing" 2>/dev/null)" ]]; then
     flags+="%F{9}${symbols[rebase]}%f"
-  # upstream
+  # origin
   elif [[ -n "$(git show-ref origin/$branch 2>/dev/null)" ]]; then
-    flags+="%F{10}${symbols[remote]}%f"
-  # local
+    flags+="%F{10}${symbols[origin]}%f"
+  # no upstream
   else
     flags+="%F{11}${symbols[local]}%f"
   fi
 
+  # diverged
+  if [[ -n "$(git rev-list HEAD..@{u} 2>/dev/null)" ]] && [[ -n "$(git rev-list @{u}..HEAD 2>/dev/null)" ]]; then
+    flags+="%F{1}${symbols[diverged]}%f"
   # behind
-  if [[ -n "$(git rev-list HEAD..@{u} 2>/dev/null)" ]]; then
-    flags+="%F{1}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f"
-  fi
-
+  elif [[ -n "$(git rev-list HEAD..@{u} 2>/dev/null)" ]]; then
+    flags+="%F{3}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f"
   # ahead
-  if [[ -n "$(git rev-list @{u}..HEAD 2>/dev/null)" ]]; then
+  elif [[ -n "$(git rev-list @{u}..HEAD 2>/dev/null)" ]]; then
     flags+="%F{2}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)%f"
   fi
 
-  # stashed
-  if git rev-parse --verify refs/stash &>/dev/null; then
-    flags+="%F{8}${symbols[stash]}$(git stash list | wc -l | sed 's/^ *//')%f"
-  fi
-
   # merging
-  local GIT_DIR="$(git rev-parse --git-dir 2>/dev/null)"
-  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    flags+="%F{1}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | wc -l | sed 's/^ *//')%f"
+  if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
+    flags+="%F{1}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | lc)%f"
   fi
 
   # staged
-  if ! git diff --cached --quiet 2>/dev/null; then
-    flags+="%F{2}${symbols[staged]}$(git diff --cached --numstat | wc -l | sed 's/^ *//')%f"
+  if ! $(git diff --cached --quiet 2>/dev/null); then
+    flags+="%F{2}${symbols[staged]}$(git diff --cached --numstat | lc)%f"
   fi
 
   # modified
-  if ! git diff --quiet 2>/dev/null; then
+  if ! $(git diff --quiet 2>/dev/null); then
     flags+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
   fi
 
   # untracked
   if [[ -n $(git ls-files --other --exclude-standard 2>/dev/null) ]]; then
-    flags+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | wc -l | sed 's/^ *//')%f"
+    flags+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | lc)%f"
   fi
 
   local -a GIT_INFO
 
-  #upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} |  sed 's;/.*;;')
-
-  GIT_INFO+=("%F{8}  %F{5}$branch%f")
+  GIT_INFO+=("%F{8} on %F{5}$branch%f")
 
   [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=(${(j: :)flags})
 
@@ -81,7 +85,7 @@ git_info() {
 }
 
 env_info() {
-  typeset -g _env_info=''
+  typeset -g _env_info=""
 
   # display node version
   if [[ -f package.json ]]; then
@@ -114,6 +118,6 @@ preexec() {
 }
 
 # prompt
-PS1=$'%F{4}%2~%f${_git_info}\n%F{8}λ %f'
+PS1=$'%F{4}%2~%f${_git_info}\n%F{8}→ %f'
 PS2=$'%F{8}→ %f'
-RPROMPT=''
+RPROMPT=""
