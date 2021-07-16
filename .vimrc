@@ -97,6 +97,11 @@ set laststatus=2
 set noshowmode
 set shortmess=
 set statusline=
+set statusline+=%5*%{(mode()==#'n')?'\ NORMAL\ ':''}
+set statusline+=%6*%{(mode()==#'i')?'\ INSERT\ ':''}
+set statusline+=%7*%{(mode()==#'R')?'\ REPLACE\ ':''}
+set statusline+=%8*%{(mode()==?'v')?'\ VISUAL\ ':''}
+set statusline+=%9*%{(mode()==#'c')?'\ COMMAND\ ':''}
 set statusline+=%4*\ %<%t\                               " file path
 set statusline+=%3*%{&modified?'\*\ ':''}                " modified
 set statusline+=%3*%{&readonly?'\\ ':''}                " read-only
@@ -106,9 +111,3 @@ set statusline+=%1*\ %{''.(&fenc!=''?&fenc:&enc).''}\    " encoding
 set statusline+=%1*\ %{&ff}\                             " file format
 set statusline+=%1*\ %l:%c\                              " line and col
 set statusline+=%1*\ %p%%\                               " percent
-
-set statusline+=%5*%{(mode()==#'n')?'\ NORMAL\ ':''}
-set statusline+=%6*%{(mode()==#'i')?'\ INSERT\ ':''}
-set statusline+=%7*%{(mode()==#'R')?'\ REPLACE\ ':''}
-set statusline+=%8*%{(mode()==?'v')?'\ VISUAL\ ':''}
-set statusline+=%9*%{(mode()==#'c')?'\ COMMAND\ ':''}
