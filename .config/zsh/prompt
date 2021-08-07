@@ -7,7 +7,7 @@ git_info() {
   ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 && return
 
   local -a flags
-  local branch=$(git rev-parse --abbrev-ref HEAD)
+  local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
   local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
 
   local function lc() {

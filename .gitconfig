@@ -29,6 +29,7 @@
 	changed = 3
 	untracked = 6
 	unmerged = 1
+	branch = 5
 [commit]
 	verbose = true
 [pull]
@@ -37,6 +38,8 @@
 	default = simple
 [credential]
 	helper = osxkeychain
+[log]
+	date = relative
 [pretty]
 	shortlog = format:%C(3)%h %C(2)[%cr] %C(4)<%an>%C(reset) -%C(reset) %s%C(auto)%d%C(reset)
 [init]
