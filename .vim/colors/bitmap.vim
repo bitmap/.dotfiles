@@ -9,7 +9,7 @@ set background=dark
 let g:colors_name="bitmap"
 
 " Vim UI
-hi Normal              ctermfg=15
+hi Normal              ctermfg=NONE
 hi Cursor              ctermfg=7   ctermbg=1
 hi CursorLine                      ctermbg=0     cterm=NONE
 hi MatchParen          ctermfg=15  ctermbg=8     cterm=NONE
@@ -28,7 +28,7 @@ hi CursorLineNr        ctermfg=15  ctermbg=NONE  cterm=NONE
 hi Visual              ctermfg=0   ctermbg=8
 hi IncSearch           ctermfg=0   ctermbg=13    cterm=NONE
 hi Search              ctermfg=0   ctermbg=10
-hi StatusLine          ctermfg=7   ctermbg=0
+hi StatusLine          ctermfg=15  ctermbg=0
 hi StatusLineNC        ctermfg=8   ctermbg=0
 hi VertSplit           ctermfg=0   ctermbg=0     cterm=NONE
 hi TabLine             ctermfg=8   ctermbg=0     cterm=NONE
@@ -45,15 +45,16 @@ hi DiffChange          ctermfg=0   ctermbg=3
 hi DiffDelete          ctermfg=0   ctermbg=1
 hi DiffText            ctermfg=0   ctermbg=11
 
-hi User1               ctermfg=8   ctermbg=NONE
-hi User2               ctermfg=0   ctermbg=8
-hi User3               ctermfg=7   ctermbg=NONE
-hi User4               ctermfg=15  ctermbg=NONE
-hi User5               ctermfg=4   ctermbg=NONE
-hi User6               ctermfg=2   ctermbg=NONE
-hi User7               ctermfg=3   ctermbg=NONE
-hi User8               ctermfg=5   ctermbg=NONE
-hi User9               ctermfg=1   ctermbg=NONE
+hi User1               ctermfg=NONE  ctermbg=8
+hi User2               ctermfg=8   ctermbg=0
+hi User3               ctermfg=15  ctermbg=0
+hi User4               ctermfg=0   ctermbg=7
+
+hi User5               ctermfg=0   ctermbg=4    " NORMAL
+hi User6               ctermfg=0   ctermbg=2    " INSERT
+hi User7               ctermfg=0   ctermbg=3    " REPLACE
+hi User8               ctermfg=0   ctermbg=5    " VISUAL
+hi User9               ctermfg=0   ctermbg=1    " COMMAND
 
 hi! link CursorColumn  CursorLine
 hi! link SignColumn    LineNr
@@ -66,22 +67,22 @@ hi! link TabLineFill   StatusLineNC
 hi! link SpecialKey    NonText
 
 " Syntax
-hi Comment             ctermfg=7
-hi Constant            ctermfg=14  cterm=NONE
-hi String              ctermfg=11
+hi Comment             ctermfg=8
+hi Constant            ctermfg=9  cterm=NONE
+hi String              ctermfg=3
 hi Character           ctermfg=11
-hi Number              ctermfg=3
-hi Float               ctermfg=10
-hi Boolean             ctermfg=6
+hi Number              ctermfg=14
+hi Float               ctermfg=6
+hi Boolean             ctermfg=10
 hi Identifier          ctermfg=2   cterm=NONE
 hi Function            ctermfg=2
 hi Statement           ctermfg=5
-hi Operator            ctermfg=7
+hi Operator            ctermfg=15
 hi Keyword             ctermfg=4
 hi PreProc             ctermfg=3
 hi Include             ctermfg=13
 hi Define              ctermfg=5
-hi Type                ctermfg=4
+hi Type                ctermfg=12
 hi StorageClass        ctermfg=4
 hi Structure           ctermfg=4
 hi Typedef             ctermfg=4
@@ -91,4 +92,3 @@ hi Underlined          ctermfg=4   cterm=underline
 hi Ignore              ctermfg=0
 hi Error               ctermfg=1   ctermbg=NONE
 hi Todo                ctermfg=9   ctermbg=NONE  cterm=NONE
-
