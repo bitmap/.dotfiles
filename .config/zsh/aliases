@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# shell ux
+alias hist="history 1"
+alias ssh="kitty +kitten ssh"
+
 # better ls
 case `uname` in
   Darwin)
