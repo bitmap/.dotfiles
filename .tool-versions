@@ -1,4 +1,4 @@
-deno 1.13.2
+deno 1.14.0
 golang 1.17
 nodejs lts
 python 3.9.7
