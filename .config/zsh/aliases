@@ -5,13 +5,13 @@ alias hist="history 1"
 alias ssh="kitty +kitten ssh"
 
 # better ls
-case `uname` in
+case $(uname) in
   Darwin)
     # use the GNU coreutils ls if available
-    gls -d . &>/dev/null 2>&1 && alias ls='gls -F --color' || alias ls='ls -FG'
+    gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
     ;;
   Linux)
-    alias ls='ls -F --color'
+    alias ls="ls -F --color"
     ;;
 esac
 
@@ -20,7 +20,7 @@ alias ll="ls -lh"
 alias lla="ls -lha"
 
 # vim-style quit
-alias :q='exit'
+alias :q="exit"
 
 # dots
 alias dots="dotfiles"
@@ -76,7 +76,7 @@ alias -s {md,json,css,html}=code
 alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
-if [[ `uname` == "Darwin" ]]; then
+if [[ $(uname) == "Darwin" ]]; then
   # restart
   alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
@@ -85,5 +85,5 @@ if [[ `uname` == "Darwin" ]]; then
   alias zz="pmset sleepnow"
 
   # flush dns cache
-  alias flushdns='dscacheutil -flushcache'
+  alias flushdns="dscacheutil -flushcache"
 fi

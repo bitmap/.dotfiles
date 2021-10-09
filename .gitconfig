@@ -1,46 +1,46 @@
 [user]
-	name = Cabe Branson
-	email = 1258606+bitmap@users.noreply.github.com
+  name = Cabe Branson
+  email = 1258606+bitmap@users.noreply.github.com
 [core]
-	ignorecase = false
-	editor = vim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  ignorecase = false
+  editor = vim
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
-	it = !git init && git commit -m "root" --allow-empty
-	got = pull --rebase origin
-	please = push --force-with-lease
-	forget = checkout --
-	amend = commit --amend
-	recommit = commit --amend --no-edit
-	uncommit = reset --soft HEAD^
-	fucked = reset --hard HEAD
-	hoard = stash --include-untracked
-	lg = -c core.pager='less -S' log --color --graph --decorate --pretty=shortlog --abbrev-commit
-	last = log --abbrev-commit HEAD^..HEAD
-	upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
+  it = !git init && git commit -m "root" --allow-empty
+  got = pull --rebase origin
+  please = push --force-with-lease
+  forget = checkout --
+  amend = commit --amend
+  recommit = commit --amend --no-edit
+  uncommit = reset --soft HEAD^
+  fucked = reset --hard HEAD
+  hoard = stash --include-untracked
+  lg = -c core.pager='less -S' log --color --graph --decorate --pretty=shortlog --abbrev-commit
+  last = log --abbrev-commit HEAD^..HEAD
+  upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
 [color]
-	ui = true
+  ui = true
 [color "branch"]
-	current = 3 reverse
-	local = 3
-	remote = 6
+  current = 3 reverse
+  local = 3
+  remote = 6
 [color "status"]
-	added = 2
-	changed = 3
-	untracked = 6
-	unmerged = 1
-	branch = 5
+  added = 2
+  changed = 3
+  untracked = 6
+  unmerged = 1
+  branch = 5
 [commit]
-	verbose = true
+  verbose = true
 [pull]
-	rebase = true
+  rebase = true
 [push]
-	default = simple
+  default = simple
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [log]
-	date = relative
+  date = relative
 [pretty]
-	shortlog = format:%C(3)%h %C(2)[%cs] %C(reset)- %s %C(4)<%an>%C(auto)%d %C(reset)
+  shortlog = format:%C(3)%h %C(2)[%cs] %C(reset)- %s %C(4)<%an>%C(auto)%d %C(reset)
 [init]
-	defaultBranch = main
+  defaultBranch = main

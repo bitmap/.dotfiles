@@ -1,11 +1,11 @@
 export SHELL=/bin/zsh
 
 # editor
-export EDITOR=`which vim`
-export VISUAL=`which vim`
+export EDITOR=$(which vim)
+export VISUAL=$(which vim)
 
 # page
-export PAGER=`which less`
+export PAGER=$(which less)
 export LESS='-RFXn'
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink

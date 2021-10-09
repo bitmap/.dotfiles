@@ -97,18 +97,18 @@ set laststatus=2
 set noshowmode
 set shortmess=
 set statusline=
-set statusline+=%0*\ %n\                                 " buffer number
-set statusline+=%5*%{(mode()==#'n')?'\ NORMAL\ ':''}
-set statusline+=%6*%{(mode()==#'i')?'\ INSERT\ ':''}
-set statusline+=%7*%{(mode()==#'R')?'\ REPLACE\ ':''}
-set statusline+=%8*%{(mode()==?'v')?'\ VISUAL\ ':''}
-set statusline+=%9*%{(mode()==#'c')?'\ COMMAND\ ':''}
-set statusline+=%1*\ %<%F\                               " file path
-set statusline+=%1*\%{&modified?'\*\ ':''}               " modified
-set statusline+=%1*\%{&readonly?'\\ ':''}               " read-only
-set statusline+=%2*%=                                    " right side
-set statusline+=%2*\ %{&filetype}\                       " filetype
-set statusline+=%2*\%{''.(&fenc!=''?&fenc:&enc).''}\     " encoding
-set statusline+=%2*\(%{&ff})\                            " file format
-set statusline+=%1*\ %02l:%02v\                          " line:col
-set statusline+=%0*\ %3p%%\                              " percent
+set statusline+=%0*\ %n\                              " buffer number
+set statusline+=%5*%{(mode()==#'n')?'\ NORMAL\ ':''}  " normal mode
+set statusline+=%6*%{(mode()==#'i')?'\ INSERT\ ':''}  " insert mode
+set statusline+=%7*%{(mode()==#'R')?'\ REPLACE\ ':''} " replace mode
+set statusline+=%8*%{(mode()==?'v')?'\ VISUAL\ ':''}  " visual mode
+set statusline+=%9*%{(mode()==#'c')?'\ COMMAND\ ':''} " command mode
+set statusline+=%1*\ %<%F\                            " file path
+set statusline+=%1*\%{&modified?'\*\ ':''}            " modified
+set statusline+=%1*\%{&readonly?'\\ ':''}            " read-only
+set statusline+=%2*%=                                 " right side
+set statusline+=%2*\ %{&filetype}\                    " filetype
+set statusline+=%2*\%{''.(&fenc!=''?&fenc:&enc).''}\  " encoding
+set statusline+=%2*\(%{&ff})\                         " file format
+set statusline+=%1*\ %02l:%02v\                       " line:col
+set statusline+=%0*\ %3p%%\                           " percent
