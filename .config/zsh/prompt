@@ -28,13 +28,14 @@ git_info() {
   symbols[change]='*'
   symbols[untracked]='?'
 
-  # stash
-  if git rev-parse --verify refs/stash &>/dev/null; then
-    flags+="%F{8}${symbols[stash]}$(git stash list | lc)%f"
-  fi
-
+  # merging
+  if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
+    flags+="%F{9}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | lc)%f"
+  # rebasing
+  elif [[ -n $(git status | grep "rebasing" 2>/dev/null) ]]; then
+    flags+="%F{9}${symbols[rebase]}%f"
   # diverged
-  if [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]] && [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
+  elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]] && [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
     flags+="%F{9}${symbols[diverged]}%f"
   # behind
   elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]]; then
@@ -50,12 +51,9 @@ git_info() {
     flags+="%F{11}${symbols[local]}%f"
   fi
 
-  # merging
-  if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
-    flags+="%F{9}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | lc)%f"
-  # rebasing
-  elif [[ -n $(git status | grep "rebasing" 2>/dev/null) ]]; then
-    flags+="%F{9}${symbols[rebase]}%f"
+  # stash
+  if git rev-parse --verify refs/stash &>/dev/null; then
+    flags+="%F{8}${symbols[stash]}$(git stash list | lc)%f"
   fi
 
   # staged
@@ -119,4 +117,3 @@ preexec() {
 # prompt
 PS1=$'%F{12}%2~%f${_git_info}\n%F{8}→ %f'
 PS2=$'%F{8}→ %f'
-RPROMPT=''
