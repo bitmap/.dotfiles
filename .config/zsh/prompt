@@ -52,22 +52,22 @@ git_info() {
   fi
 
   # stash
-  if git rev-parse --verify refs/stash &>/dev/null; then
+  if [[ -n $(git rev-parse --verify refs/stash 2>/dev/null) ]]; then
     flags+="%F{8}${symbols[stash]}$(git stash list | lc)%f"
   fi
 
   # staged
-  if ! $(git diff --cached --quiet 2>/dev/null); then
+  if [[ -n $(git diff --cached 2>/dev/null) ]]; then
     flags+="%F{10}${symbols[staged]}$(git diff --cached --numstat | lc)%f"
   fi
 
   # modified
-  if ! $(git diff --quiet 2>/dev/null); then
+  if [[ -n $(git diff 2>/dev/null) ]]; then
     flags+="%F{11}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
   fi
 
   # untracked
-  if [[ -n $(git ls-files --other --exclude-standard 2>/dev/null) ]]; then
+  if [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]]; then
     flags+="%F{14}${symbols[untracked]}$(git ls-files --others --exclude-standard | lc)%f"
   fi
 
