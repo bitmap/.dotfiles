@@ -1,119 +1,106 @@
 #!/bin/zsh
 
-git_info() {
-  typeset -g _git_info=""
+function git_status() {
+  export git_statusline=""
 
   # return if not a git repo
   ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 && return
 
-  local -a flags
-  local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
-  local git_dir=$(git rev-parse --git-dir 2>/dev/null)
-
-  local function lc() {
+  local function line_count() {
     wc -l | sed 's/^ *//'
   }
 
-  # symbols
-  typeset -A symbols
-  symbols[stash]='≡'
-  symbols[rebase]='~'
-  symbols[origin]='✓'
-  symbols[local]='•'
-  symbols[diverged]='⚠'
-  symbols[behind]='↓'
-  symbols[ahead]='↑'
-  symbols[merge]='!'
-  symbols[staged]='+'
-  symbols[change]='*'
-  symbols[untracked]='?'
+  # get current branch
+  local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
 
-  # merging
-  if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
-    flags+="%F{9}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | lc)%f"
-  # rebasing
-  elif [[ -n $(git status | grep "rebasing" 2>/dev/null) ]]; then
-    flags+="%F{9}${symbols[rebase]}%f"
-  # diverged
-  elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]] && [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
-    flags+="%F{9}${symbols[diverged]}%f"
-  # behind
-  elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]]; then
-    flags+="%F{11}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f"
-  # ahead
-  elif [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
-    flags+="%F{10}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)%f"
-  # origin
-  elif [[ -n $(git show-ref origin/$branch 2>/dev/null) ]]; then
-    flags+="%F{10}${symbols[origin]}%f"
-  # no upstream
-  else
-    flags+="%F{11}${symbols[local]}%f"
-  fi
+  # get current dir
+  local git_dir=$(git rev-parse --git-dir 2>/dev/null)
+
+  # symbols
+  local -A symbols=(
+    [stash]='≡'
+    [rebase]='~'
+    [origin]='✓'
+    [local]='•'
+    [diverged]='⚠'
+    [behind]='↓'
+    [ahead]='↑'
+    [merge]='!'
+    [staged]='+'
+    [change]='*'
+    [untracked]='?'
+  )
+
+  # init statusline & display branch
+  local -a statusline=("%F{8} on %F{13}${branch}%f")
 
   # stash
   if [[ -n $(git rev-parse --verify refs/stash 2>/dev/null) ]]; then
-    flags+="%F{8}${symbols[stash]}$(git stash list | lc)%f"
+    statusline+="%F{8}${symbols[stash]}$(git stash list | line_count)%f"
+  fi
+
+  # merging
+  if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
+    statusline+="%F{9}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | line_count)%f"
+  # rebasing
+  elif [[ -n $(git status | grep "rebasing" 2>/dev/null) ]]; then
+    statusline+="%F{9}${symbols[rebase]}%f"
+  # diverged
+  elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]] && [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
+    statusline+="%F{9}${symbols[diverged]}%f"
+  # behind
+  elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]]; then
+    statusline+="%F{11}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f"
+  # ahead
+  elif [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
+    statusline+="%F{10}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)%f"
+  # origin
+  elif [[ -n $(git show-ref origin/${branch} 2>/dev/null) ]]; then
+    statusline+="%F{10}${symbols[origin]}%f"
+  # no upstream
+  else
+    statusline+="%F{11}${symbols[local]}%f"
   fi
 
   # staged
   if [[ -n $(git diff --cached 2>/dev/null) ]]; then
-    flags+="%F{10}${symbols[staged]}$(git diff --cached --numstat | lc)%f"
+    statusline+="%F{10}${symbols[staged]}$(git diff --cached --numstat | line_count)%f"
   fi
 
   # modified
   if [[ -n $(git diff 2>/dev/null) ]]; then
-    flags+="%F{11}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
+    statusline+="%F{11}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
   fi
 
   # untracked
   if [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]]; then
-    flags+="%F{14}${symbols[untracked]}$(git ls-files --others --exclude-standard | lc)%f"
+    statusline+="%F{14}${symbols[untracked]}$(git ls-files --others --exclude-standard | line_count)%f"
   fi
 
-  local -a GIT_INFO
-
-  GIT_INFO+=("%F{8} on %F{13}$branch%f")
-
-  [[ ${#flags[@]} -ne 0 ]] && GIT_INFO+=(${(j: :)flags})
-
-  _git_info=${(j: :)GIT_INFO}
+  # set final statusline to global variable
+  git_statusline=${(j: :)statusline}
 }
 
-env_info() {
-  typeset -g _env_info=""
-
-  # display node version
-  if [[ -f package.json ]]; then
-    _env_info="%F{8} ◆ %F{10}$(node --version)%f"
-  fi
-
-  # display rust version
-  if [[ -f Cargo.toml ]]; then
-    _env_info="%F{8} ◆ %F{9}v$(rustc --version | cut -d' ' -f2)%f"
-  fi
-}
-
-precmd() {
+function precmd() {
   # print a newline before the prompt unless it's the first prompt in the process.
-  if [ -z $NEW_LINE_BEFORE_PROMPT ]; then
-    NEW_LINE_BEFORE_PROMPT=1
-  elif [ $NEW_LINE_BEFORE_PROMPT -eq 1 ]; then
-    echo ""
+  if [[ -z $newline_before_prompt ]]; then
+    newline_before_prompt=1
+  elif [[ $newline_before_prompt -eq 1 ]]; then
+    echo ''
   fi
 
   # set tab title to current dir
   print -Pn "\e]0;%2~\a"
 
-  # init git_info function
-  git_info
+  # fetch git info for statusline
+  git_status
 }
 
-preexec() {
+function preexec() {
   # set tab title to current dir and process
   print -Pn "\e]0;%2~ ($1)\a"
 }
 
 # prompt
-PS1=$'%F{12}%2~%f${_git_info}\n%F{8}→ %f'
+PS1=$'%F{12}%2~%f${git_statusline}\n%F{8}→ %f'
 PS2=$'%F{8}→ %f'
