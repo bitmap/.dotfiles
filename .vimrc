@@ -92,6 +92,9 @@ set undodir=~/.vim/undo
 " remap Esc to jj
 inoremap jj <ESC>
 
+" customizations
+set fillchars+=vert:\▏
+
 " statusline
 set laststatus=2
 set noshowmode
