@@ -1,14 +1,12 @@
 #!/bin/zsh
 
-function git_status() {
+git_status() {
   export git_statusline=""
 
   # return if not a git repo
   ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 && return
 
-  local function line_count() {
-    wc -l | sed 's/^ *//'
-  }
+  local line_count() ( wc -l | sed 's/^ *//' )
 
   # get current branch
   local branch=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
@@ -81,7 +79,7 @@ function git_status() {
   git_statusline=${(j: :)statusline}
 }
 
-function precmd() {
+precmd() {
   # print a newline before the prompt unless it's the first prompt in the process.
   if [[ -z $newline_before_prompt ]]; then
     newline_before_prompt=1
@@ -96,7 +94,7 @@ function precmd() {
   git_status
 }
 
-function preexec() {
+preexec() {
   # set tab title to current dir and process
   print -Pn "\e]0;%2~ ($1)\a"
 }
