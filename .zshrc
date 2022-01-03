@@ -8,7 +8,6 @@ zconfig=$HOME/.config/zsh
 
 # options
 setopt prompt_subst    # allow prompt expansion
-setopt completealiases # alias completion
 setopt glob            # expand stuff to generate filenames
 setopt extendedglob    # allow regex globbing
 setopt nocaseglob      # case-insensitive globbing
