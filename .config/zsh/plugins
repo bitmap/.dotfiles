@@ -1,12 +1,13 @@
 #!/bin/zsh
 
 plugins=(
-  '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
-  '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+  '/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 )
 
-for plugin in $plugins; do [ -f $plugin ] && source $plugin; done
+for plugin in $plugins; do [[ -f $plugin ]] && source $plugin; done
 
 # disable zsh-syntax-highlighting underline
-ZSH_HIGHLIGHT_STYLES[path]=none
-ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then 
+  ZSH_HIGHLIGHT_STYLES[path]=none
+  ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+fi
