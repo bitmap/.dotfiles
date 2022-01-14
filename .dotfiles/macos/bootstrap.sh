@@ -15,19 +15,19 @@ xcode-select --install
 
 print -P "%F{3}\nInstalling Homebrew...%f"
 echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 print -P "%F{3}\nInstalling Apps and dev tools via Homebrew...%f"
 brew bundle --file $HOME/.dotfiles/macos/Brewfile
 
-print -P "%F{3}\nInstalling asdf...%f"
-git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
-
 echo "%F{3}\nInstalling asdf plugins...%f"
-source $HOME/.asdf/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
 asdf plugin add deno
 asdf plugin add golang
 asdf plugin add nodejs
 asdf plugin add python
+asdf plugin add ruby
 asdf plugin add rust
 
 echo "%F{3}\nInstalling dev tools...%f"
