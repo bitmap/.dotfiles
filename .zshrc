@@ -29,4 +29,4 @@ fpath=($zfunc $fpath)
 for func in $^zfunc/*(N-.:t); autoload -Uz $func
 
 # source asdf
-[ -f $HOME/.asdf/asdf.sh ] && . $HOME/.asdf/asdf.sh
+[[ -f $(brew --prefix asdf)/libexec/asdf.sh ]] && . $(brew --prefix asdf)/libexec/asdf.sh
