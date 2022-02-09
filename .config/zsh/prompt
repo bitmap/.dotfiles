@@ -88,7 +88,7 @@ precmd() {
   fi
 
   # set tab title to current dir
-  print -Pn "\e]0;%2~\a"
+  print -Pn "\e]0;%1~\a"
 
   # fetch git info for statusline
   git_status
@@ -96,7 +96,7 @@ precmd() {
 
 preexec() {
   # set tab title to current dir and process
-  print -Pn "\e]0;%2~ ($1)\a"
+  print -Pn "\e]0;%1~ ($1)\a"
 }
 
 # prompt
