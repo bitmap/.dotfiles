@@ -77,6 +77,9 @@ alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
 if [[ $(uname) == "Darwin" ]]; then
+  # get ip address
+  alias ip="ipconfig getifaddr en0"
+
   # restart
   alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
