@@ -1,22 +1,3 @@
-" load plugins
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-  Plug 'tpope/vim-surround'
-  Plug 'preservim/nerdtree'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'dense-analysis/ale'
-call plug#end()
-
-" utf-8
-set encoding=utf-8
-
 " enter the current millennium
 set nocompatible
 
@@ -32,22 +13,16 @@ filetype indent on
 
 " rad tab-completion
 set path+=**
-set wildmenu
 
-" INSERT tweaks
-set noesckeys
-set backspace=indent,eol,start
-
-" enable mouse
-set mouse=a
+" why is this so long
+set ttimeoutlen=0
 
 " configure title
 set title
-set titlestring=%f\ –\ vim
+set titlestring=%f\ -\ vim
 
 " fix annoying cursor hop
 set nostartofline
-set ruler
 
 " highlight matching brackets
 set showmatch
@@ -66,9 +41,6 @@ set ignorecase
 
 " show incremental search results as you type
 set incsearch
-
-" disable swap file
-set noswapfile
 
 " map system keyboard to paster buffer
 set clipboard=unnamedplus
