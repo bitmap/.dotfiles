@@ -3,8 +3,11 @@ tap 'homebrew/cask-fonts'
 cask_args "no-quarantine": true
 
 brew 'asdf'
+brew 'bat'
 brew 'coreutils'
+brew 'diskus'
 brew 'diff-so-fancy'
+brew 'fd'
 brew 'ffmpeg'
 brew 'gh'
 brew 'gifsicle'
