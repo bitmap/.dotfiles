@@ -85,5 +85,5 @@ set statusline+=%2*%=                                 " right side
 set statusline+=%2*\ %{&filetype}\                    " filetype
 set statusline+=%2*\%{''.(&fenc!=''?&fenc:&enc).''}\  " encoding
 set statusline+=%2*\(%{&ff})\                         " file format
-set statusline+=%1*\ %02l:%02v\                       " line:col
+set statusline+=%1*\ \\%02l\\%02v\                  " line:col
 set statusline+=%0*\ %3p%%\                           " percent
