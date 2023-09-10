@@ -6,8 +6,12 @@ plugins=(
 
 for plugin in $plugins; do [[ -f $plugin ]] && source $plugin; done
 
-# disable zsh-syntax-highlighting underline
-if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then 
+if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then
+  # disable underline
   ZSH_HIGHLIGHT_STYLES[path]=none
   ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+
+  # disable bold
+  ZSH_HIGHLIGHT_STYLES[arg0]=fg=green,normal
+  ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,normal
 fi

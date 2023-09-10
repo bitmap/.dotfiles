@@ -3,7 +3,6 @@ zconfig=$HOME/.config/zsh
 
 # source config files
 . $zconfig/aliases
-. $zconfig/plugins
 . $zconfig/prompt
 
 # options
@@ -31,4 +30,7 @@ fpath=($zfunc $fpath)
 for func in $^zfunc/*(N-.:t); autoload -Uz $func
 
 # source asdf
-[[ -f $(brew --prefix asdf)/libexec/asdf.sh ]] && . $(brew --prefix asdf)/libexec/asdf.sh
+[ -s $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh
+
+# source plugins (must be last)
+. $zconfig/plugins

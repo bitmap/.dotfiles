@@ -20,7 +20,7 @@ git_status() {
     [rebase]='~'
     [origin]='✓'
     [local]='•'
-    [diverged]='⚠'
+    [diverged]='≠'
     [behind]='↓'
     [ahead]='↑'
     [merge]='!'
@@ -30,7 +30,7 @@ git_status() {
   )
 
   # init statusline & display branch
-  local -a statusline=("%F{8} on %F{13}${branch}%f")
+  local -a statusline=("%F{8}  %F{13}${branch}%f")
 
   # stash
   if [[ -n $(git rev-parse --verify refs/stash 2>/dev/null) ]]; then
