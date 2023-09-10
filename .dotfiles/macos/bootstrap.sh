@@ -28,10 +28,13 @@ asdf plugin add golang
 asdf plugin add nodejs
 asdf plugin add python
 asdf plugin add ruby
-asdf plugin add rust
+asdf plugin add solidity
 
-echo "%F{3}\nInstalling dev tools...%f"
+echo "%F{3}\nInstalling dev tools via asdf...%f"
 asdf install
+
+echo "%F{3}\nInstalling rustc...%f"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 print -P "%F{3}\nSetting macOS Preferences...%f"
 source $HOME/.dotfiles/macos/defaults.sh
