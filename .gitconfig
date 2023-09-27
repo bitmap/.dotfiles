@@ -1,6 +1,7 @@
 [user]
   name = Cabe Branson
   email = 1258606+bitmap@users.noreply.github.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1r/gDV1b8WNy9cg7/H5+v+5qvvVHZkGbKIYvyfm/yb
 [core]
   ignorecase = false
   editor = vim
@@ -32,6 +33,7 @@
   branch = 5
 [commit]
   verbose = true
+  gpgsign = true
 [pull]
   rebase = true
 [push]
@@ -44,3 +46,7 @@
   shortlog = format:%C(3)%h %C(2)[%cs] %C(reset)- %s %C(4)<%an>%C(auto)%d %C(reset)
 [init]
   defaultBranch = main
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
