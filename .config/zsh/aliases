@@ -89,4 +89,7 @@ if [[ $(uname) == "Darwin" ]]; then
 
   # flush dns cache
   alias flushdns="dscacheutil -flushcache"
+
+  # force removal of quarantine attribute on unsigned executables
+  alias allow-run="xattr -d com.apple.quarantine"
 fi
