@@ -1,5 +1,5 @@
 deno 1.38.4
-golang 1.21.1
+golang 1.22.0
 nodejs 20.9.0
 python 3.11.5
 ruby 3.1.0
