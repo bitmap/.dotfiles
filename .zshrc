@@ -32,10 +32,11 @@ for func in $^zfunc/*(N-.:t); autoload -Uz $func
 # source asdf
 [ -s $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh
 
-# source plugins (must be last)
-. $zconfig/plugins
-
 # go
 export GOPATH=$(asdf where golang)/packages
 export GOROOT=$(asdf where golang)/go
 export PATH="${PATH}:$(go env GOPATH)/bin"
+
+# source plugins (must be last)
+. $zconfig/plugins
+
