@@ -5,7 +5,7 @@
 [core]
 	ignorecase = false
 	editor = vim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 [alias]
 	it = !git init && git commit -m "root" --allow-empty
 	got = pull --rebase origin
@@ -50,3 +50,11 @@
 	format = ssh
 [include]
     path = "~/.git-gpg-ssh"
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
