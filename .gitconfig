@@ -4,7 +4,7 @@
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1r/gDV1b8WNy9cg7/H5+v+5qvvVHZkGbKIYvyfm/yb
 [core]
 	ignorecase = false
-	editor = vim
+	editor = nvim
 	pager = delta
 [alias]
 	it = !git init && git commit -m "root" --allow-empty
