@@ -48,13 +48,18 @@
 	defaultBranch = main
 [gpg]
 	format = ssh
-[include]
-    path = "~/.git-gpg-ssh"
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [delta]
-    navigate = true
+	navigate = true
 [merge]
-    conflictstyle = diff3
+	conflictstyle = diff3
 [diff]
-    colorMoved = default
+	colorMoved = default
+
+# set gpg "ssh" option on a per-machine basis via include file
+# [gpg "ssh"] 
+# 	program = "/opt/1Password/op-ssh-sign"; linux
+# 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"; macos
+[include]
+	path = "~/.git-gpg-ssh"
