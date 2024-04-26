@@ -30,12 +30,13 @@ fpath=($zfunc $fpath)
 for func in $^zfunc/*(N-.:t); autoload -Uz $func
 
 # source asdf
-[ -s $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh
-
-# go
-export GOPATH=$(asdf where golang)/packages
-export GOROOT=$(asdf where golang)/go
-export PATH="${PATH}:$(go env GOPATH)/bin"
+if [[ $(command -v brew) == "" && $(uname) == "Darwin" ]]; then
+    # if macOS and installed via Homebrew...
+    [ -s $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh
+elif [[ -d "$HOME/.asdf" ]]; then
+    # manual install
+    . "$HOME/.asdf/asdf.sh"
+fi
 
 # source plugins (must be last)
 . $zconfig/plugins
