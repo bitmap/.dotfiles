@@ -1,13 +1,21 @@
 #!/bin/zsh
-
-plugins=(
-  '/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
-)
+case $(uname) in
+	Darwin)
+		plugins=(
+			'$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+		)
+		;;
+	Linux)
+		plugins=(
+			'/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+		)
+		;;
+esac
 
 for plugin in $plugins; do [[ -f $plugin ]] && source $plugin; done
 
 if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then
-  # disable underline
-  ZSH_HIGHLIGHT_STYLES[path]=fg=white,none
-  ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=white,none
+	# disable underline
+	ZSH_HIGHLIGHT_STYLES[path]=fg=white,none
+	ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=white,none
 fi
