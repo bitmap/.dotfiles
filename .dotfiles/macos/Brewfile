@@ -3,9 +3,10 @@ cask_args "no-quarantine": true
 
 brew 'asdf'
 brew 'bat'
+brew 'btop'
 brew 'coreutils'
+brew 'delta'
 brew 'diskus'
-brew 'diff-so-fancy'
 brew 'fd'
 brew 'ffmpeg'
 brew 'fzf'
