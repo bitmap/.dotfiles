@@ -2,19 +2,9 @@
 
 # shell ux
 alias hist="history 1"
-alias ssh="kitty +kitten ssh"
 
-# better ls
-case $(uname) in
-  Darwin)
-    # use the GNU coreutils ls if available
-    gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
-    ;;
-  Linux)
-    alias ls="ls -F --color"
-    ;;
-esac
-
+# ls
+alias ls="ls -F --color"
 alias lsa="ls -a"
 alias ll="ls -lh"
 alias lla="ls -lha"
@@ -59,10 +49,6 @@ alias p="python3"
 alias python="python3"
 alias pip="pip3"
 
-# rust aliases
-alias r="rustup"
-alias c="cargo"
-
 # suffixed aliases
 alias -s js="node"
 alias -s ts="deno run"
@@ -77,19 +63,23 @@ alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
 if [[ $(uname) == "Darwin" ]]; then
-  # get ip address
-  alias ip="ipconfig getifaddr en0"
 
-  # restart
-  alias ugh="osascript -e 'tell app \"System Events\" to restart'"
+# use the GNU coreutils ls if available
+gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
 
-  # sleep
-  alias z="pmset displaysleepnow"
-  alias zz="pmset sleepnow"
+# get ip address
+alias ip="ipconfig getifaddr en0"
 
-  # flush dns cache
-  alias flushdns="dscacheutil -flushcache"
+# restart
+alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
-  # force removal of quarantine attribute on unsigned executables
-  alias allow-run="xattr -d com.apple.quarantine"
+# sleep
+alias z="pmset displaysleepnow"
+alias zz="pmset sleepnow"
+
+# flush dns cache
+alias flushdns="dscacheutil -flushcache"
+
+# force removal of quarantine attribute on unsigned executables
+alias allow-run="xattr -d com.apple.quarantine"
 fi
