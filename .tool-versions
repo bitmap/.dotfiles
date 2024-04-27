@@ -1,7 +1,5 @@
-deno 1.41.3
-golang 1.22.0
-nodejs 20.11.1
-python 3.10.8
-ruby 3.1.0
-haskell 9.4.7
-solidity 0.8.21
+deno        latest
+golang      prefix:1.22
+nodejs      lts
+python      3
+solidity    0.8.21
