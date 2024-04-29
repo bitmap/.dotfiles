@@ -2,4 +2,4 @@ deno        latest
 golang      prefix:1.22
 nodejs      lts
 python      3
-solidity    0.8.21
+solidity    0.8.25

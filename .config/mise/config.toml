@@ -1,0 +1,6 @@
+[tools]
+# see ~/.tool-versions
+
+[settings]
+legacy_version_file = true
+asdf_compat = false
