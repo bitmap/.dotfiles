@@ -1,1 +1,1 @@
-bash <(curl -Ls https://github.com/bitmap/dotfiles/raw/master/.dotfiles/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/bitmap/dotfiles/master/.dotfiles/install.sh)
