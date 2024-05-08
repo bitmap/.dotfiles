@@ -8,12 +8,10 @@ alias ls="ls -F --color"
 alias lsa="ls -a"
 alias ll="ls -lh"
 alias lla="ls -lha"
+alias l=ll
 
 # vim-style quit
 alias :q="exit"
-
-# dots
-alias dots="dotfiles"
 
 # git aliases
 alias ga="git add"
