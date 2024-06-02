@@ -1,7 +1,5 @@
-tap 'homebrew/cask-fonts'
 cask_args "no-quarantine": true
 
-brew 'asdf'
 brew 'bat'
 brew 'btop'
 brew 'coreutils'
@@ -27,6 +25,7 @@ brew 'wget'
 brew 'zoxide'
 brew 'zsh-syntax-highlighting'
 
+cask '1password'
 cask 'docker'
 cask 'figma'
 cask 'firefox'
