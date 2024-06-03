@@ -32,6 +32,9 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # System: disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# System: Turn off predictive text pop-up
+defaults write NSGlobalDomain NSAutomaticInlinePredictionEnabled -int 0
+
 # System: set keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
@@ -58,7 +61,7 @@ defaults write com.apple.finder ShowStatusBar -bool true
 # Finder: set home as the default location for new Finder windows
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
 
-# When performing a search, search the current folder by default
+# Finder: When performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Finder: disable the warning when changing a file extension
@@ -69,6 +72,13 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Finder: disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# Finder: Use list view in all Finder windows by default
+# Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Finder: Adjust toolbar title rollover delay
+defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
 
 # Dock: enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
@@ -91,6 +101,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Dock: make icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
+# Dock: Delete all shortcuts in the Dock
+defaults write com.apple.dock persistent-apps -array
+
 # Mission Control: speed up animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
@@ -109,10 +122,3 @@ defaults write com.apple.TextEdit RichText -int 0
 # TextEdit: open and save files as UTF-8
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
-
-# Use list view in all Finder windows by default
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-
-# Adjust toolbar title rollover delay
-defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
