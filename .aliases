@@ -10,6 +10,9 @@ alias ll="ls -lh"
 alias lla="ls -lha"
 alias l=ll
 
+# vim -> nvim
+alias vim="nvim"
+
 # vim-style quit
 alias :q="exit"
 
