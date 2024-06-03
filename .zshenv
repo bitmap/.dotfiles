@@ -1,8 +1,8 @@
 export SHELL=/bin/zsh
 
 # editor
-export EDITOR=$(which nvim)
-export VISUAL=$(which nvim)
+export EDITOR=$(which vim)
+export VISUAL=$(which vim)
 
 # page
 export PAGER=$(which less)
