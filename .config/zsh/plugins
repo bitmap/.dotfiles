@@ -1,18 +1,21 @@
 #!/bin/zsh
+
 case $(uname) in
 	Darwin)
-		plugins=(
-			'$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
-		)
+		ZSH_PLUGINS_DIR="$(brew --prefix)/share"
 		;;
 	Linux)
-		plugins=(
-			'/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
-		)
+		ZSH_PLUGINS_DIR="/usr/share"
 		;;
 esac
 
-for plugin in $plugins; do [[ -f $plugin ]] && source $plugin; done
+ZSH_PLUGINS=(
+	"$ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+)
+
+for plugin in $ZSH_PLUGINS; do
+	[[ -f $plugin ]] && source $plugin;
+done
 
 if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then
 	# disable underline
