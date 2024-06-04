@@ -1,0 +1,99 @@
+{
+  // Files
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Editor
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.accessibilitySupport": "off",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.comments.insertSpace": true,
+  "editor.detectIndentation": true,
+  "editor.fontFamily": "'Berkeley Mono', 'SF Mono', monospace",
+  "editor.fontLigatures": false,
+  "editor.fontSize": 16,
+  "editor.fontWeight": "normal",
+  "editor.formatOnSave": false,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.indentation": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lightbulb.enabled": "off",
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "selection",
+  "editor.rulers": [],
+  "editor.semanticHighlighting.enabled": true,
+  "editor.tabSize": 4,
+
+  // Explorer
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.decorations.badges": false,
+  "explorer.incrementalNaming": "smart",
+
+  // UI
+  "breadcrumbs.enabled": false,
+  "diffEditor.renderSideBySide": false,
+  "window.closeWhenEmpty": true,
+  "window.commandCenter": false,
+  "workbench.activityBar.location": "hidden",
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.decorations.badges": false,
+  "workbench.editor.decorations.colors": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.splitInGroupLayout": "horizontal",
+  "workbench.enableExperiments": false,
+  "workbench.fontAliasing": "auto",
+  "workbench.layoutControl.enabled": false,
+  "workbench.settings.editor": "json",
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  "workbench.tree.renderIndentGuides": "none",
+
+  // Terminal
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+
+  // Search
+  "search.searchOnType": false,
+  "search.useGlobalIgnoreFiles": true,
+  "search.exclude": {
+    "**/package-lock.json": true,
+    "**/yarn.lock": true
+  },
+
+  // Misc
+  "keyboard.touchbar.enabled": true,
+
+  // Telemetry
+  "telemetry.telemetryLevel": "off",
+  "solidity.telemetry": false,
+
+  // Languages
+  "[javascript][javascriptreact][typescript][typescriptreact][html][css][json][jsonc][markdown]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[go]": {
+    "editor.insertSpaces": false,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Extensions
+  "extensions.ignoreRecommendations": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "git.openRepositoryInParentFolders": "always"
+}
