@@ -56,10 +56,6 @@
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
-
 # set gpg "ssh" option on a per-machine basis via include file
-# [gpg "ssh"] 
-# 	program = "/opt/1Password/op-ssh-sign"; linux
-# 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"; macos
 [include]
-	path = "~/.git-gpg-ssh"
+	path = "~/.git-ssh-sign"

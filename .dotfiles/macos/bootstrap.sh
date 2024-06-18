@@ -34,4 +34,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 print -P "%F{3}\nSetting macOS Preferences...%f"
 source $HOME/.dotfiles/macos/defaults.sh
 
+print -P "%F{3}\nSetting path to git ssh signer...%f"
+echo "[gpg \"ssh\"]\n\tprogram = \"/Applications/1Password.app/Contents/MacOS/op-ssh-sign\"" > $HOME/.git-ssh-sign
+
 print -P "%F{2}\nFinished macOS bootstrap. Please restart.%f"

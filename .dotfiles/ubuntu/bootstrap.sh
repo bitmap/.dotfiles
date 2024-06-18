@@ -31,4 +31,8 @@ echo "\e[1;32mDone\e[0m"
 # install rust
 echo "\e[1;36m\nInstalling rust...\e[0m"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+echo "\e[1;35m\nSetting path to git ssh signer...\e[0m"
+echo "[gpg \"ssh\"]\n\tprogram = \"/opt/1Password/op-ssh-sign\"" > $HOME/.git-ssh-sign
+
 echo "\e[1;32mDone\e[0m"
