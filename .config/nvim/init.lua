@@ -30,6 +30,8 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
+vim.cmd([[ aunmenu PopUp.How-to\ disable\ mouse ]])
+vim.cmd([[ aunmenu PopUp.-1- ]])
 -- plugins
 local plugins = {
 	{
@@ -41,7 +43,13 @@ local plugins = {
 		"nvim-lualine/lualine.nvim",
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		config = function()
-			require("lualine").setup({options = {icons_enabled = false}})
+			require("lualine").setup({
+				options = {
+					icons_enabled = false,
+					section_separators = '',
+					component_separators = ''
+				}
+	  		})
 		end
 	}, {
 		"nvim-telescope/telescope.nvim",
