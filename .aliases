@@ -16,6 +16,9 @@ alias vim="nvim"
 # vim-style quit
 alias :q="exit"
 
+# fzf stff
+alias fzp="fzf --preview='cat {}' --color"
+
 # git aliases
 alias ga="git add"
 alias gb="git branch"
@@ -44,6 +47,7 @@ alias nt="npm test"
 alias nr="npm run"
 alias nb="npm run build"
 alias nd="npm run dev"
+alias nx="npx nx"
 
 # python aliases
 alias p="python3"
