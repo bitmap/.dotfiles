@@ -39,8 +39,10 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
+-- disable annoyances
 vim.cmd([[ aunmenu PopUp.How-to\ disable\ mouse ]])
 vim.cmd([[ aunmenu PopUp.-1- ]])
+
 -- plugins
 local plugins = {
 	{
