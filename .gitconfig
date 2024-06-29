@@ -51,11 +51,12 @@
 [interactive]
 	diffFilter = delta --color-only
 [delta]
+	features = ansi
 	navigate = true
 [merge]
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
-# set gpg "ssh" option on a per-machine basis via include file
 [include]
+	# set gpg "ssh" option on a per-machine basis via include file
 	path = "~/.git-ssh-sign"
