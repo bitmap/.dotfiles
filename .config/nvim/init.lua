@@ -24,8 +24,17 @@ vim.opt.titlestring = 'nvim %{expand("%:p")}'
 vim.opt.laststatus = 2
 vim.opt.showmode = false
 
+-- invisible chars
+vim.opt.list = true
+vim.opt.listchars = "tab:▸ ,trail:×"
+
+-- disable spaces, but be nice to others
+vim.opt.expandtab = false
+vim.opt.copyindent = true
+vim.opt.preserveindent = true
+vim.opt.smartindent = true
+
 -- make tabs as wide as two spaces
-vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -40,6 +49,8 @@ local plugins = {
 		priority = 1000,
 		config = function() vim.cmd.colorscheme "tokyonight" end
 	}, {
+		"tpope/vim-sleuth"
+	}, {
 		"nvim-lualine/lualine.nvim",
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		config = function()
@@ -49,7 +60,7 @@ local plugins = {
 					section_separators = '',
 					component_separators = ''
 				}
-	  		})
+			})
 		end
 	}, {
 		"nvim-telescope/telescope.nvim",
