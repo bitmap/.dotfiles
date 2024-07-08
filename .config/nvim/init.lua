@@ -104,6 +104,93 @@ local plugins = {
 				}
 			})
 		end
+	}, {
+		-- LSP support
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			-- LSP servers manager
+			{"williamboman/mason.nvim", config = true},
+			{"williamboman/mason-lspconfig.nvim"},
+			-- autocomplete
+			{"hrsh7th/nvim-cmp"},
+			{"hrsh7th/cmp-nvim-lsp"},
+			-- snippets
+			{"L3MON4D3/LuaSnip"}
+		},
+		config = function()
+			-- setup LSP
+			vim.api.nvim_create_autocmd('LspAttach', {
+				desc = 'LSP actions',
+				callback = function(event)
+					local map = function(keys, func, desc)
+						vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+					end
+
+					map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+					map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+					map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+					map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+					map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+					map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+					map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+					map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+					map('K', vim.lsp.buf.hover, 'Hover Documentation')
+					map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+				end
+			})
+
+			-- default capabilities
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+			-- manage installed servers
+			require('mason').setup()
+			require('mason-lspconfig').setup({
+				ensure_installed = {
+					"html", "cssls", "tailwindcss", "stylelint_lsp", "eslint",
+					"marksman", "tsserver", "clangd", "gopls", "pyright",
+					"rust_analyzer", "solang", "bashls", "jsonls", "dockerls",
+					"docker_compose_language_service"
+				},
+				handlers = {
+					function(server)
+						require('lspconfig')[server].setup({
+							capabilities = capabilities
+						})
+					end,
+					lua_ls = function()
+						require('lspconfig').lua_ls.setup({
+							capabilities = capabilities,
+							settings = {
+								Lua = {
+									runtime = {version = 'LuaJIT'},
+									diagnostics = {globals = {'vim'}},
+									workspace = {library = {vim.env.VIMRUNTIME}}
+								}
+							}
+						})
+					end
+				}
+			})
+
+			-- autocomplete setup
+			local cmp = require('cmp')
+			cmp.setup({
+				sources = {{name = 'nvim_lsp'}},
+				mapping = cmp.mapping.preset.insert({
+					-- Tab key confirms completion item
+					['<Tab>'] = cmp.mapping.confirm({select = true}),
+					-- Ctrl + . triggers completion menu
+					['<C-.>'] = cmp.mapping.complete()
+				}),
+				-- select first candidate automatically
+				completion = { completeopt = 'menu,menuone,noinsert' },
+				snippet = {
+					expand = function(args)
+						require('luasnip').lsp_expand(args.body)
+					end
+				}
+			})
+		end
 	}
 }
 
