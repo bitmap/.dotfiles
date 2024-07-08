@@ -30,7 +30,7 @@ vim.opt.showmode = false
 
 -- invisible chars
 vim.opt.list = true
-vim.opt.listchars = "tab:▸ ,trail:×"
+vim.opt.listchars = { tab = "› ", trail = "×" }
 
 -- disable spaces, but be nice to others
 vim.opt.expandtab = false
