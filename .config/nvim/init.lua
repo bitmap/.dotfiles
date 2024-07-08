@@ -16,6 +16,10 @@ vim.g.have_nerd_font = false
 -- import vanilla vim settings
 vim.cmd([[ source $HOME/.vimrc ]])
 
+-- make things snappier
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+
 -- neovim title
 vim.opt.title = true
 vim.opt.titlestring = 'nvim %{expand("%:p")}'
