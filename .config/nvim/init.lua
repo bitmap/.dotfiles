@@ -65,7 +65,6 @@ local plugins = {
 	{
 		-- fancy statusline
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("lualine").setup({
 				options = {
@@ -79,7 +78,10 @@ local plugins = {
 	{
 		-- fuzzy finder
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", lazy = true },
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
 		keys = {
 			{ "<C-p>", ":Telescope commands<cr>", desc = "Commands" },
 			{ "<leader>fb", ":Telescope buffers<cr>", desc = "[F]ind [B]uffers" },
@@ -87,13 +89,20 @@ local plugins = {
 			{ "<leader>fh", ":Telescope oldfiles<cr>", desc = "[F]ind [H]istory" },
 			{ "<leader>fg", ":Telescope live_grep<cr>", desc = "[F]ind [G]rep" },
 			{ "<leader>fk", ":Telescope keymaps<cr>", desc = "[Find] [K]eymaps" },
-			{ "gd", ":Telescope lsp_definitions<cr>", desc = "Go to Definition" },
-			{ "gr", ":Telescope lsp_references<cr>", desc = "Go to References" },
+			{ "gd", ":Telescope lsp_definitions<cr>", desc = "[G]o to [D]efinition" },
+			{ "gr", ":Telescope lsp_references<cr>", desc = "[G]o to [R]eferences" },
+			{ "gI", ":Telescope lsp_implementations<cr>", desc = "[G]oto [I]mplementation" },
+			{ "<leader>D", "Telescope lsp_type_definitions<cr>", desc = "Type [D]efinition" },
+			{ "<leader>ds", "Telescope lsp_document_symbols<cr>", desc = "[D]ocument [S]ymbols" },
 		},
 		config = function()
-			require("telescope").setup({
+			local telescope = require("telescope")
+
+			telescope.setup({
 				defaults = { file_ignore_patterns = { ".git", "node_modules" } },
 			})
+			-- load telescope-fzf-native
+			telescope.load_extension("fzf")
 		end,
 	},
 	{
@@ -147,11 +156,6 @@ local plugins = {
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -187,18 +191,6 @@ local plugins = {
 					function(server)
 						require("lspconfig")[server].setup({
 							capabilities = capabilities,
-						})
-					end,
-					lua_ls = function()
-						require("lspconfig").lua_ls.setup({
-							capabilities = capabilities,
-							settings = {
-								Lua = {
-									runtime = { version = "LuaJIT" },
-									diagnostics = { globals = { "vim" } },
-									workspace = { library = { vim.env.VIMRUNTIME } },
-								},
-							},
 						})
 					end,
 				},
@@ -254,6 +246,22 @@ local plugins = {
 				typescript = { { "prettierd", "prettier" } },
 			},
 		},
+	},
+	{
+		-- display a popup with possible keybindings for command
+		"folke/which-key.nvim",
+		event = "VimEnter",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {},
+	},
+	{
+		-- ez lua ls setup
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {},
 	},
 }
 
