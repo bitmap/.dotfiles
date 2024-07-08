@@ -46,13 +46,16 @@ vim.cmd([[ aunmenu PopUp.-1- ]])
 -- plugins
 local plugins = {
 	{
+		-- theme
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function() vim.cmd.colorscheme "tokyonight" end
 	}, {
+		-- heuristically set buffer options
 		"tpope/vim-sleuth"
 	}, {
+		-- fancy statusline
 		"nvim-lualine/lualine.nvim",
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		config = function()
@@ -65,6 +68,7 @@ local plugins = {
 			})
 		end
 	}, {
+		-- fuzzy finder
 		"nvim-telescope/telescope.nvim",
 		dependencies = {"nvim-lua/plenary.nvim", lazy = true},
 		keys = {
@@ -83,6 +87,7 @@ local plugins = {
 			})
 		end
 	}, {
+		-- syntax parsing
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
@@ -107,3 +112,4 @@ require("lazy").setup(plugins, {
 	install = {colorscheme = {"auto"}},
 	checker = {enabled = false}
 })
+
