@@ -278,6 +278,13 @@ local plugins = {
 	},
 }
 
+-- highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
 -- setup lazy.nvim
 require("lazy").setup(plugins, {
 	install = { colorscheme = { "auto" } },
