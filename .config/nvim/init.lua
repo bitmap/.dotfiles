@@ -263,6 +263,19 @@ local plugins = {
 		ft = "lua",
 		opts = {},
 	},
+	{
+		-- explore/edit filesystem like a buffer
+		"stevearc/oil.nvim",
+		opts = {
+			view_options = {
+				show_hidden = false,
+			},
+		},
+		config = function()
+			require("oil").setup()
+			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		end,
+	},
 }
 
 -- setup lazy.nvim
