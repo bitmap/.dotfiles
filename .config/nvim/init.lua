@@ -173,6 +173,8 @@ local plugins = {
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-path" },
+			-- notifications
+			{ "j-hui/fidget.nvim", opts = {} },
 			-- snippets
 			{ "L3MON4D3/LuaSnip" },
 		},
@@ -303,6 +305,25 @@ local plugins = {
 		config = function()
 			require("oil").setup()
 			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		end,
+	},
+	{
+		-- surround
+		"tpope/vim-surround",
+	},
+	{
+		-- restore previous session from cwd
+		"rmagatti/auto-session",
+		dependencies = {
+			"rmagatti/session-lens",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("auto-session").setup({
+				auto_session_suppress_dirs = { "/", "~/", "~/Downloads" },
+			})
+			-- load session-lens
+			require("telescope").load_extension("session-lens")
 		end,
 	},
 }
