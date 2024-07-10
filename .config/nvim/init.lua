@@ -59,12 +59,36 @@ local plugins = {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("tokyonight")
+			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
 	{
 		-- heuristically set buffer options
 		"tpope/vim-sleuth",
+	},
+	{
+		-- :Git command
+		"tpope/vim-fugitive",
+	},
+	{
+		-- GitHub integration for fugitive
+		"tpope/vim-rhubarb",
+	},
+	{
+		-- show git status symbols
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({
+				signs = {
+					add = { text = "+" },
+					change = { text = "~" },
+					delete = { text = "_" },
+					topdelete = { text = "‾" },
+					changedelete = { text = "~" },
+					untracked = { text = "┆" },
+				},
+			})
+		end,
 	},
 	{
 		-- fancy statusline
