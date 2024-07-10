@@ -112,7 +112,7 @@ local plugins = {
 		},
 		keys = {
 			{ "<C-p>", ":Telescope commands<cr>", desc = "Commands" },
-			{ "<leader>fb", ":Telescope buffers<cr>", desc = "[F]ind [B]uffers" },
+			{ "<leader><space>", ":Telescope buffers<cr>", desc = "Find Buffers" },
 			{ "<leader>ff", ":Telescope find_files<cr>", desc = "[F]ind [F]iles" },
 			{ "<leader>fh", ":Telescope oldfiles<cr>", desc = "[F]ind [H]istory" },
 			{ "<leader>fg", ":Telescope live_grep<cr>", desc = "[F]ind [G]rep" },
@@ -128,6 +128,7 @@ local plugins = {
 
 			telescope.setup({
 				defaults = { file_ignore_patterns = { ".git", "node_modules" } },
+				pickers = { buffers = { sort_lastused = true } },
 			})
 			-- load telescope-fzf-native
 			telescope.load_extension("fzf")
