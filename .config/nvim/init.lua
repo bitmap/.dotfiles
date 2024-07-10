@@ -19,6 +19,7 @@ vim.cmd([[ source $HOME/.vimrc ]])
 -- make things snappier
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
+vim.opt.ttimeoutlen = 0
 
 -- neovim title
 vim.opt.title = true
@@ -30,7 +31,7 @@ vim.opt.showmode = false
 
 -- invisible chars
 vim.opt.list = true
-vim.opt.listchars = { tab = "› ", trail = "×" }
+vim.opt.listchars = { tab = "┆ ", trail = "×" }
 
 -- disable spaces, but be nice to others
 vim.opt.expandtab = false
@@ -42,6 +43,9 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
+
+-- better complete
+vim.opt.completeopt = "menuone,noselect"
 
 -- disable annoyances
 vim.cmd([[ aunmenu PopUp.How-to\ disable\ mouse ]])
