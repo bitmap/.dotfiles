@@ -327,6 +327,27 @@ local plugins = {
 		opts = {},
 	},
 	{
+		-- directory tree
+		"nvim-tree/nvim-tree.lua",
+		lazy = false,
+		config = function()
+			require("nvim-tree").setup()
+
+			vim.keymap.set(
+				"n",
+				"<leader>tf",
+				":NvimTreeFocus<CR>",
+				{ desc = "Focus nvim-tree", noremap = true, silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>tt",
+				":NvimTreeToggle<CR>",
+				{ desc = "Toggle nvim-tree", noremap = true, silent = true }
+			)
+		end,
+	},
+	{
 		-- explore/edit filesystem like a buffer
 		"stevearc/oil.nvim",
 		opts = {
@@ -356,4 +377,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 require("lazy").setup(plugins, {
 	install = { colorscheme = { "auto" } },
 	checker = { enabled = false },
+	rtp = {
+		disabled_plugins = {
+			"netrw",
+			"netrwPlugin",
+		},
+	},
 })
