@@ -115,6 +115,12 @@ local plugins = {
 		end,
 	},
 	{
+		-- handle conflicts
+		"akinsho/git-conflict.nvim",
+		version = "*",
+		config = true,
+	},
+	{
 		-- fancy statusline
 		"nvim-lualine/lualine.nvim",
 		config = function()
