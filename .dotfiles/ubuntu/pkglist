@@ -17,6 +17,7 @@ neovim
 ripgrep
 rsync
 tmux
+tmux-mem-cpu-load
 unzip
 vim
 wget
