@@ -54,6 +54,20 @@ vim.cmd([[ aunmenu PopUp.-1- ]])
 -- plugins
 local plugins = {
 	{
+		-- restore previous session from cwd
+		"rmagatti/auto-session",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("auto-session").setup({
+				auto_save_enabled = true,
+				auto_restore_enabled = true,
+				auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+			})
+		end,
+	},
+	{
 		-- theme
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -73,6 +87,16 @@ local plugins = {
 	{
 		-- GitHub integration for fugitive
 		"tpope/vim-rhubarb",
+	},
+	{
+		"f-person/git-blame.nvim",
+		config = function()
+			require("gitblame").setup({
+				enabled = true,
+				message_template = "← <author>, <date> (<sha>)",
+				date_format = "%r",
+			})
+		end,
 	},
 	{
 		-- show git status symbols
@@ -96,10 +120,12 @@ local plugins = {
 		config = function()
 			require("lualine").setup({
 				options = {
+					theme = "tokyonight",
 					icons_enabled = false,
 					section_separators = "",
 					component_separators = "",
 				},
+				sections = { lualine_c = { require("auto-session.lib").current_session_name } },
 			})
 		end,
 	},
@@ -310,21 +336,6 @@ local plugins = {
 	{
 		-- surround
 		"tpope/vim-surround",
-	},
-	{
-		-- restore previous session from cwd
-		"rmagatti/auto-session",
-		dependencies = {
-			"rmagatti/session-lens",
-			"nvim-telescope/telescope.nvim",
-		},
-		config = function()
-			require("auto-session").setup({
-				auto_session_suppress_dirs = { "/", "~/", "~/Downloads" },
-			})
-			-- load session-lens
-			require("telescope").load_extension("session-lens")
-		end,
 	},
 }
 
