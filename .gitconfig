@@ -19,6 +19,10 @@
 	lg = -c core.pager='less -S' log --color --graph --decorate --pretty=shortlog --abbrev-commit
 	last = log --abbrev-commit HEAD^..HEAD
 	upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
+	bb = !~/.config/git/scripts/better-git-branch.sh
+	pushup = !~/.config/git/scripts/pushup.sh
+	prune-merged = !~/.config/git/scripts/prune-branches.sh
+	prune-squashed = !~/.config/git/scripts/prune-squashed.sh
 [color]
 	ui = true
 [color "branch"]
