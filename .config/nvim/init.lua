@@ -73,7 +73,7 @@ local plugins = {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("tokyonight-night")
+			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
 	{
@@ -127,7 +127,6 @@ local plugins = {
 			require("lualine").setup({
 				options = {
 					theme = "tokyonight",
-					icons_enabled = false,
 					section_separators = "",
 					component_separators = "",
 				},
@@ -141,6 +140,7 @@ local plugins = {
 		dependencies = {
 			{ "nvim-lua/plenary.nvim", lazy = true },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			{ "nvim-tree/nvim-web-devicons" },
 		},
 		keys = {
 			{ "<C-p>", ":Telescope commands<cr>", desc = "Commands" },
