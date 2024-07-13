@@ -36,3 +36,11 @@ echo "\e[1;35m\nSetting path to git ssh signer...\e[0m"
 echo "[gpg \"ssh\"]\n\tprogram = \"/opt/1Password/op-ssh-sign\"" > $HOME/.git-ssh-sign
 
 echo "\e[1;32mDone\e[0m"
+
+# install nerd font
+echo "\e[1;36m\nInstalling nerd font...\e[0m"
+wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip \
+&& cd ~/.local/share/fonts \
+&& unzip JetBrainsMono.zip \
+&& rm JetBrainsMono.zip \
+&& fc-cache -fv

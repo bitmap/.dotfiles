@@ -40,5 +40,4 @@ cask 'transmit'
 cask 'visual-studio-code'
 cask 'vlc'
 
-cask 'font-jetbrains-mono'
-cask 'font-monaspace'
+cask 'font-jetbrains-mono-nerd-font'
