@@ -1,1 +1,4 @@
 --theme="ansi"
+
+# show line numbers and git modifications
+--style="numbers,changes"
