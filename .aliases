@@ -16,8 +16,11 @@ alias vim="nvim"
 # vim-style quit
 alias :q="exit"
 
-# fzf stff
+# fzf stuff
 alias fzp="fzf --preview='cat {}' --color"
+
+# dotfiles
+alias dots="dotfiles"
 
 # git aliases
 alias ga="git add"
@@ -61,7 +64,7 @@ alias -s py="python3"
 alias -s git="git clone"
 
 # bulk association
-alias -s {md,json,css,html}=code
+alias -s {md,json,css,html}=nvim
 
 # misc
 alias zrc="source $HOME/.zshrc"
@@ -79,8 +82,7 @@ alias ip="ipconfig getifaddr en0"
 alias ugh="osascript -e 'tell app \"System Events\" to restart'"
 
 # sleep
-alias z="pmset displaysleepnow"
-alias zz="pmset sleepnow"
+alias zzz="pmset sleepnow"
 
 # flush dns cache
 alias flushdns="dscacheutil -flushcache"
