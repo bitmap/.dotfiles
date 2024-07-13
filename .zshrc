@@ -1,19 +1,19 @@
 # options
-setopt prompt_subst			# allow prompt expansion
-setopt glob					# expand stuff to generate filenames
-setopt extendedglob			# allow regex globbing
-setopt nocaseglob			# case-insensitive globbing
-setopt autocd				# better cd
-setopt autopushd			# auto add to dir stack
-setopt nobeep				# shut up
-setopt numericglobsort		# sort numerically
+setopt prompt_subst # allow prompt expansion
+setopt glob # expand stuff to generate filenames
+setopt extendedglob # allow regex globbing
+setopt nocaseglob # case-insensitive globbing
+setopt autocd # better cd
+setopt autopushd # auto add to dir stack
+setopt nobeep # shut up
+setopt numericglobsort # sort numerically
 
 # history
 export HISTFILE="$HOME/.zsh_history"
 export HISTFILESIZE=1000000
 export HISTSIZE=1000000
-setopt inc_append_history	# appends every command to history immediately
-setopt share_history		# share history between all sessions
+setopt inc_append_history # appends every command to history immediately
+setopt share_history # share history between all sessions
 
 # autocomplete
 autoload -Uz compinit && compinit -i
@@ -41,3 +41,7 @@ for func in $^zfunc/*(N-.:t); autoload -Uz $func
 if test -f "$HOME/.local/bin/mise"; then
 	eval "$($HOME/.local/bin/mise activate zsh)"
 fi
+
+# setup fzf keybindings and completion
+eval "$(fzf --zsh)"
+

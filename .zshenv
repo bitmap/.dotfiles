@@ -17,3 +17,6 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 # source rust env
 [ -d "$HOME/.cargo" ] && . "$HOME/.cargo/env"
+
+# add yarn to path
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
