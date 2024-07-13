@@ -336,13 +336,13 @@ local plugins = {
 			vim.keymap.set(
 				"n",
 				"<leader>tf",
-				":NvimTreeFocus<CR>",
+				"<CMD>NvimTreeFocus<CR>",
 				{ desc = "Focus nvim-tree", noremap = true, silent = true }
 			)
 			vim.keymap.set(
 				"n",
 				"<leader>tt",
-				":NvimTreeToggle<CR>",
+				"<CMD>NvimTreeToggle<CR>",
 				{ desc = "Toggle nvim-tree", noremap = true, silent = true }
 			)
 		end,
@@ -361,6 +361,24 @@ local plugins = {
 		end,
 	},
 	{
+		-- toggle comments
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+
+			-- remap to ctrl + /
+			vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
+			vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
+		end,
+	},
+	{
+		-- highlight instances of text under cursor
+		"RRethy/vim-illuminate",
+		config = function()
+			require("illuminate").configure({})
+		end,
+	},
+	{
 		-- surround
 		"tpope/vim-surround",
 	},
@@ -372,6 +390,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- additional keymaps
+-- stay in visual mode when indenting
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- setup lazy.nvim
 require("lazy").setup(plugins, {
