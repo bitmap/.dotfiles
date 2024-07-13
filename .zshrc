@@ -43,5 +43,5 @@ if test -f "$HOME/.local/bin/mise"; then
 fi
 
 # setup fzf keybindings and completion
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
