@@ -138,22 +138,22 @@ local plugins = {
 		-- fuzzy finder
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			{ "nvim-lua/plenary.nvim", lazy = true },
+			{ "nvim-lua/plenary.nvim",                    lazy = true },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			{ "nvim-tree/nvim-web-devicons" },
 		},
 		keys = {
-			{ "<C-p>", ":Telescope commands<cr>", desc = "Commands" },
-			{ "<leader><space>", ":Telescope buffers<cr>", desc = "Find Buffers" },
-			{ "<leader>ff", ":Telescope find_files<cr>", desc = "[F]ind [F]iles" },
-			{ "<leader>fh", ":Telescope oldfiles<cr>", desc = "[F]ind [H]istory" },
-			{ "<leader>fg", ":Telescope live_grep<cr>", desc = "[F]ind [G]rep" },
-			{ "<leader>fk", ":Telescope keymaps<cr>", desc = "[Find] [K]eymaps" },
-			{ "gd", ":Telescope lsp_definitions<cr>", desc = "[G]o to [D]efinition" },
-			{ "gr", ":Telescope lsp_references<cr>", desc = "[G]o to [R]eferences" },
-			{ "gI", ":Telescope lsp_implementations<cr>", desc = "[G]oto [I]mplementation" },
-			{ "<leader>D", "Telescope lsp_type_definitions<cr>", desc = "Type [D]efinition" },
-			{ "<leader>ds", "Telescope lsp_document_symbols<cr>", desc = "[D]ocument [S]ymbols" },
+			{ "<C-p>",           ":Telescope commands<cr>",            desc = "Commands" },
+			{ "<leader><space>", ":Telescope buffers<cr>",             desc = "Find Buffers" },
+			{ "<leader>ff",      ":Telescope find_files<cr>",          desc = "[F]ind [F]iles" },
+			{ "<leader>fh",      ":Telescope oldfiles<cr>",            desc = "[F]ind [H]istory" },
+			{ "<leader>fg",      ":Telescope live_grep<cr>",           desc = "[F]ind [G]rep" },
+			{ "<leader>fk",      ":Telescope keymaps<cr>",             desc = "[Find] [K]eymaps" },
+			{ "gd",              ":Telescope lsp_definitions<cr>",     desc = "[G]o to [D]efinition" },
+			{ "gr",              ":Telescope lsp_references<cr>",      desc = "[G]o to [R]eferences" },
+			{ "gI",              ":Telescope lsp_implementations<cr>", desc = "[G]oto [I]mplementation" },
+			{ "<leader>D",       "Telescope lsp_type_definitions<cr>", desc = "Type [D]efinition" },
+			{ "<leader>ds",      "Telescope lsp_document_symbols<cr>", desc = "[D]ocument [S]ymbols" },
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -199,14 +199,14 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- LSP servers manager
-			{ "williamboman/mason.nvim", config = true },
+			{ "williamboman/mason.nvim",          config = true },
 			{ "williamboman/mason-lspconfig.nvim" },
 			-- autocomplete
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-path" },
 			-- notifications
-			{ "j-hui/fidget.nvim", opts = {} },
+			{ "j-hui/fidget.nvim",                opts = {} },
 			-- snippets
 			{ "L3MON4D3/LuaSnip" },
 		},
@@ -313,11 +313,16 @@ local plugins = {
 	{
 		-- display a popup with possible keybindings for command
 		"folke/which-key.nvim",
-		event = "VimEnter",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
 		opts = {},
 	},
 	{
@@ -363,12 +368,15 @@ local plugins = {
 	{
 		-- toggle comments
 		"numToStr/Comment.nvim",
+		keys = {
+			-- remap to ctrl + /
+			{ "<C-_>", "gcc",  mode = "n", remap = true },
+			{ "<C-/>", "gcc",  mode = "n", remap = true },
+			{ "<C-_>", "gcgv", mode = "v", remap = true },
+			{ "<C-/>", "gcgv", mode = "v", remap = true },
+		},
 		config = function()
 			require("Comment").setup()
-
-			-- remap to ctrl + /
-			vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = false })
-			vim.api.nvim_set_keymap("v", "<C-_>", "gcc", { noremap = false })
 		end,
 	},
 	{
