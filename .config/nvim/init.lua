@@ -23,7 +23,7 @@ vim.opt.ttimeoutlen = 0
 
 -- neovim title
 vim.opt.title = true
-vim.opt.titlestring = 'nvim %{expand("%:p")}'
+vim.opt.titlestring = "nvim - %t"
 
 -- statusline
 vim.opt.laststatus = 2
@@ -92,7 +92,7 @@ local plugins = {
 		"f-person/git-blame.nvim",
 		config = function()
 			require("gitblame").setup({
-				enabled = true,
+				enabled = false,
 				message_template = "← <author>, <date> (<sha>)",
 				date_format = "%r",
 			})
