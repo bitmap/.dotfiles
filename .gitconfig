@@ -64,3 +64,9 @@
 [include]
 	# set gpg "ssh" option on a per-machine basis via include file
 	path = "~/.git-ssh-sign"
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
