@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 REMOTE="${1:-origin}"
