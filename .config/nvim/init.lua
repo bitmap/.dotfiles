@@ -158,12 +158,13 @@ local plugins = {
 		config = function()
 			local telescope = require("telescope")
 
-			telescope.setup({
-				defaults = { file_ignore_patterns = { ".git", "node_modules" } },
-				pickers = { buffers = { sort_lastused = true } },
-			})
 			-- load telescope-fzf-native
 			telescope.load_extension("fzf")
+
+			telescope.setup({
+				defaults = { file_ignore_patterns = { ".git", "node_modules" } },
+				pickers = { buffers = { sort_mru = true, ignore_current_buffer = true } },
+			})
 		end,
 	},
 	{
