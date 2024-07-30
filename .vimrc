@@ -57,6 +57,9 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 
+" set column line
+set colorcolumn=80
+
 " enable break indent
 set breakindent
 
