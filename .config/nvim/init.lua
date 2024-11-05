@@ -409,7 +409,7 @@ vim.keymap.set("v", ">", ">gv")
 -- setup lazy.nvim
 require("lazy").setup(plugins, {
 	install = { colorscheme = { "auto" } },
-	checker = { enabled = true },
+	checker = { enabled = false },
 	rtp = {
 		disabled_plugins = {
 			"netrw",
