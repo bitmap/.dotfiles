@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+print -P "%F{1}Note: You may need to give Terminal full disk access in System Preferences -> Privacy%f"
+
 # Ask for the administrator password upfront
 sudo -v
 
@@ -21,14 +23,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 print -P "%F{3}\nInstalling Apps and dev tools via Homebrew...%f"
 brew bundle --file $HOME/.dotfiles/macos/Brewfile
 
-echo "%F{3}\nInstalling mise...%f"
+print -P "%F{3}\nInstalling mise...%f"
 curl https://mise.run | sh
 eval "$($HOME/.local/bin/mise activate zsh)"
 
-echo "%F{3}\nInstalling dev tools via mise...%f"
+print -P "%F{3}\nInstalling dev tools via mise...%f"
 eval "$($HOME/.local/bin/mise install)"
 
-echo "%F{3}\nInstalling rustc...%f"
+print -P "%F{3}\nInstalling rustc...%f"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 print -P "%F{3}\nSetting macOS Preferences...%f"
