@@ -82,6 +82,12 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
+# [System] Disable Stage Manager
+defaults write com.apple.WindowManager GloballyEnabled -int 0
+
+# [System] Disable "click wallpaper to reveal desktop"
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -int 0
+
 # [Finder] Disable animations
 defaults write com.apple.finder DisableAllAnimations -bool true
 
