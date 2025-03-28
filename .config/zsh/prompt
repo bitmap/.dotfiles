@@ -30,7 +30,7 @@ git_status() {
   )
 
   # init statusline & display branch
-  local -a statusline=("%F{8}  %F{13}${branch}%f")
+  local -a statusline=("%F{8} (%F{13}${branch}%F{8})%f")
 
   # stash
   if [[ -n $(git rev-parse --verify refs/stash 2>/dev/null) ]]; then
