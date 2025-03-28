@@ -18,5 +18,8 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 # source rust env
 [ -d "$HOME/.cargo" ] && . "$HOME/.cargo/env"
 
-# add yarn to path
+# add yarn to PATH
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# add postgres utils to PATH
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
