@@ -10,8 +10,15 @@ alias ll="ls -lh"
 alias lla="ls -lha"
 alias l=ll
 
-# vim -> nvim
-alias vim="nvim"
+# nvim or else
+alias v="$EDITOR"
+alias vi="$EDITOR"
+alias vim="$EDITOR"
+alias nvim="$EDITOR"
+
+# tmux
+alias tmux="tmux -2 -f '$XDG_CONFIG_HOME/tmux/tmux.conf'"
+alias tmuxa='tmux attach || tmux new-session'
 
 # vim-style quit
 alias :q="exit"
@@ -71,22 +78,15 @@ alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
 if [[ $(uname) == "Darwin" ]]; then
+    # use the GNU coreutils ls if available
+    gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
 
-# use the GNU coreutils ls if available
-gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
+    # get ip address
+    alias ip="ipconfig getifaddr en0"
 
-# get ip address
-alias ip="ipconfig getifaddr en0"
+    # flush dns cache
+    alias flushdns="dscacheutil -flushcache"
 
-# restart
-alias ugh="osascript -e 'tell app \"System Events\" to restart'"
-
-# sleep
-alias zzz="pmset sleepnow"
-
-# flush dns cache
-alias flushdns="dscacheutil -flushcache"
-
-# force removal of quarantine attribute on unsigned executables
-alias allow-run="xattr -d com.apple.quarantine"
+    # force removal of quarantine attribute on unsigned executables
+    alias allow-run="xattr -d com.apple.quarantine"
 fi
