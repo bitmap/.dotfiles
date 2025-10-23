@@ -45,3 +45,4 @@ fi
 # setup fzf keybindings and completion
 source <(fzf --zsh)
 
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
