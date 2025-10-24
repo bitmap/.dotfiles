@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ "$1" = "setup" ]; then
+	source "$HOME/.dotfiles/$2/bootstrap.sh"
+else
+	/usr/bin/git --git-dir="$HOME"/.dotfiles/ --work-tree="$HOME" $@
+fi
