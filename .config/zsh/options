@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+# zsh options
+setopt prompt_subst # allow prompt expansion
+setopt glob # expand stuff to generate filenames
+setopt extendedglob # allow regex globbing
+setopt nocaseglob # case-insensitive globbing
+setopt autocd # better cd
+setopt autopushd # auto add to dir stack
+setopt nobeep # shut up
+setopt numericglobsort # sort numerically
+setopt inc_append_history # appends every command to history immediately
+setopt share_history # share history between all sessions
+
+# autocomplete
+autoload -Uz compinit && compinit -i
+zstyle ':completion:*' menu yes select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'

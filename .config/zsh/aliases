@@ -23,8 +23,12 @@ alias tmuxa='tmux attach || tmux new-session'
 # vim-style quit
 alias :q="exit"
 
-# fzf stuff
-alias fzp="fzf --preview='cat {}' --color"
+# overrides
+alias cat="bat"
+alias top="btop"
+
+# fzf with preview
+alias ff="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 # dotfiles
 alias dots="dotfiles"
