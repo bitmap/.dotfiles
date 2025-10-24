@@ -104,5 +104,4 @@ preexec() {
 }
 
 # prompt
-PS1=$'%F{blue}%~%1(j. (%j).)%f${GIT_STATUSLINE}%f\n%0(?..%F{red})λ %f'
-PS2=$'λ %f'
+PROMPT=$'%F{blue}%~%1(j. (%j).)%f${GIT_STATUSLINE}%f\n%0(?..%F{red})> %f'

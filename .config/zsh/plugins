@@ -19,7 +19,7 @@ done
 
 if [[ -v ZSH_HIGHLIGHT_STYLES ]]; then
 	# disable underline
-	ZSH_HIGHLIGHT_STYLES[path]=fg=white
-	ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=white
-	ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red
+	ZSH_HIGHLIGHT_STYLES[path]=fg=white,none
+	ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=white,none
+	ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,none
 fi
