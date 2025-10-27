@@ -63,6 +63,20 @@ alias nb="npm run build"
 alias nd="npm run dev"
 alias nx="npx nx"
 
+# k8s aliases
+alias kgp="kubectl get pod"
+alias kdp="kubectl delete pod"
+alias k8logs="kubectl logs -f"
+k8clean() {
+	kubectl delete pod $(kubectl get pods | awk '/Evicted|ImagePullBackOff|Completed|CrashLoopBackOff|Error|OOMKilled|ContainerStatusUnknown/ {print $1}')
+}
+k8exec() {
+	kubectl exec --stdin --tty $1 -- /bin/sh
+}
+k8context() {
+	kubectl config get-contexts -o name | grep $1 --color='never' | xargs kubectl config use-context
+}
+
 # python aliases
 alias p="python3"
 alias python="python3"
@@ -82,15 +96,21 @@ alias zrc="source $HOME/.zshrc"
 
 # macOS aliases
 if [[ $(uname) == "Darwin" ]]; then
-    # use the GNU coreutils ls if available
-    gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
+	# use the GNU coreutils ls if available
+	gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
 
-    # get ip address
-    alias ip="ipconfig getifaddr en0"
+	# flush dns cache
+	alias flushdns="dscacheutil -flushcache"
 
-    # flush dns cache
-    alias flushdns="dscacheutil -flushcache"
+	# get ip address
+	alias ip="ipconfig getifaddr en0"
 
-    # force removal of quarantine attribute on unsigned executables
-    alias allow-run="xattr -d com.apple.quarantine"
+	# force removal of quarantine attribute on unsigned executables
+	alias allow-run="xattr -d com.apple.quarantine"
+
+	# flush dns cache
+	alias flushdns="dscacheutil -flushcache"
+
+	# force removal of quarantine attribute on unsigned executables
+	alias allow-run="xattr -d com.apple.quarantine"
 fi
