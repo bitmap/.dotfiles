@@ -1,8 +1,5 @@
 #!/bin/zsh
 
-# shell ux
-alias hist="history 1"
-
 # ls
 alias ls="ls -F --color"
 alias lsa="ls -a"
@@ -93,6 +90,17 @@ alias -s {md,json,css,html}=nvim
 
 # misc
 alias zrc="source $HOME/.zshrc"
+
+# mkdir && cd
+function mkcd() {
+    mkdir -p "$1" && cd "$1" || exit
+}
+
+# history
+alias hist="history 1"
+function hig() {
+    history 1 | grep -- "$@"
+}
 
 # macOS aliases
 if [[ $(uname) == "Darwin" ]]; then
