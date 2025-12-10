@@ -10,9 +10,9 @@
 [remote "origin"]
 	url = git@github.com:bitmap/.dotfiles.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
+[branch "main"]
 	remote = origin
-	merge = refs/heads/master
+	merge = refs/heads/main
 [alias]
 	ci = commit
 	st = status
