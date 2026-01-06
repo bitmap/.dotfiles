@@ -7,6 +7,9 @@ alias ll="ls -lh"
 alias lla="ls -lha"
 alias l=ll
 
+# i know what i'm doing
+alias rimraf="rm -rf"
+
 # nvim or else
 alias v="$EDITOR"
 alias vi="$EDITOR"
