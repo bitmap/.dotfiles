@@ -1,0 +1,121 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "message_editor": {
+    "auto_replace_emoji_shortcode": false
+  },
+  "preferred_line_length": 80,
+  "show_wrap_guides": true,
+  "toolbar": {
+    "code_actions": true,
+    "selections_menu": true,
+    "quick_actions": false,
+    "breadcrumbs": false
+  },
+  "disable_ai": false,
+  "agent": {
+    "button": true,
+    "model_parameters": []
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "inline_code_actions": false,
+  "use_system_window_tabs": false,
+  "bottom_dock_layout": "contained",
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_sign_in": false,
+    "show_user_picture": false,
+    "show_onboarding_banner": false,
+    "show_project_items": true,
+    "show_branch_name": true,
+    "show_branch_icon": true
+  },
+  "search": {
+    "button": true
+  },
+  "diagnostics": {
+    "button": true
+  },
+  "status_bar": {
+    "cursor_position_button": true,
+    "active_language_button": true
+  },
+  "ui_font_family": ".ZedSans",
+  "buffer_font_weight": 400.0,
+  "buffer_line_height": "standard",
+  "gutter": {
+    "runnables": true,
+    "min_line_number_digits": 3
+  },
+  "terminal": {
+    "toolbar": {
+      "breadcrumbs": false
+    },
+    "dock": "right",
+    "font_size": 15.0,
+    "font_family": "Berkeley Mono",
+    "font_fallbacks": ["SF Mono Terminal", ".ZedMono"]
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "project_panel": {
+    "indent_size": 16.0,
+    "folder_icons": true,
+    "file_icons": true,
+    "entry_spacing": "standard",
+    "hide_gitignore": false,
+    "dock": "left",
+    "button": true,
+    "auto_fold_dirs": false
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+  "base_keymap": "VSCode",
+  "preview_tabs": {
+    "enabled": true
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show": true,
+    "show_tab_bar_buttons": false
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "max_tabs": 12,
+  "when_closing_with_no_tabs": "close_window",
+  "colorize_brackets": false,
+  "show_whitespaces": "selection",
+  "show_edit_predictions": true,
+  "ensure_final_newline_on_save": true,
+  "indent_guides": {
+    "background_coloring": "disabled",
+    "coloring": "fixed",
+    "line_width": 1,
+    "active_line_width": 1,
+    "enabled": true
+  },
+  "wrap_guides": [80],
+  "tab_size": 2,
+  "theme": "Catppuccin Frappé",
+  "ui_font_size": 16.0,
+  "buffer_font_size": 15.0,
+  "buffer_font_family": "Berkeley Mono"
+}
