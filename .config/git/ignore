@@ -1,9 +1,18 @@
+# OS files
 .DS_Store
 ._*
 .Spotlight-V100
 .Trashes
 Desktop.ini
 Thumbs.db
+
+# db files
+*.db
 *.dump
 
-**/.claude/settings.local.json
+# local AI agent files
+AGENTS.local.md
+CLAUDE.local.md
+.claude/artifacts
+.claude/commands/*.local.md
+.claude/settings.local.json
