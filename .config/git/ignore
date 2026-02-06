@@ -16,3 +16,4 @@ CLAUDE.local.md
 .claude/artifacts
 .claude/commands/*.local.md
 .claude/settings.local.json
+
