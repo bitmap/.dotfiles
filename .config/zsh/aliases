@@ -91,8 +91,8 @@ alias -s git="git clone"
 # bulk association
 alias -s {md,json,css,html}=nvim
 
-# misc
-alias zrc="source $HOME/.zshrc"
+# refresh zsh
+alias zrc="source $HOME/.zshrc && zsh"
 
 # mkdir && cd
 function mkcd() {
