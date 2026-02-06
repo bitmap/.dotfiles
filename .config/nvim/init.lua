@@ -69,11 +69,14 @@ local plugins = {
 	},
 	{
 		-- theme
-		"folke/tokyonight.nvim",
+		"maxmx03/solarized.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("tokyonight")
+			vim.o.termguicolors = true
+			vim.o.background = "dark"
+			require("solarized").setup(opts)
+			vim.cmd.colorscheme("solarized")
 		end,
 	},
 	{
@@ -126,7 +129,7 @@ local plugins = {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "tokyonight",
+					theme = "solarized",
 					section_separators = "",
 					component_separators = "",
 				},

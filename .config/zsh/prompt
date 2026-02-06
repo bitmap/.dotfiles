@@ -34,25 +34,25 @@ git_status() {
 
 	# merging
 	if [[ -n $git_dir ]] && test -r $git_dir/MERGE_HEAD; then
-		statusline+="%F{9}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | line_count)%f"
+		statusline+="%F{1}${symbols[merge]}$(git --no-pager diff --name-only --diff-filter=U | line_count)"
 	# rebasing
 	elif [[ -n $(git status | grep "rebasing" 2>/dev/null) ]]; then
-		statusline+="%F{9}${symbols[rebase]}%f"
+		statusline+="%F{1}${symbols[rebase]}"
 	# diverged
 	elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]] && [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
-		statusline+="%F{9}${symbols[diverged]}%f"
+		statusline+="%F{1}${symbols[diverged]}"
 	# behind
 	elif [[ -n $(git rev-list HEAD..@{u} 2>/dev/null) ]]; then
-		statusline+="%F{11}${symbols[behind]}$(git rev-list --count HEAD..@{u})%f"
+		statusline+="%F{3}${symbols[behind]}$(git rev-list --count HEAD..@{u})"
 	# ahead
 	elif [[ -n $(git rev-list @{u}..HEAD 2>/dev/null) ]]; then
-		statusline+="%F{10}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)%f"
+		statusline+="%F{2}${symbols[ahead]}$(git rev-list --count @{u}..HEAD)"
 	# origin
 	elif [[ -n $(git show-ref origin/${branch} 2>/dev/null) ]]; then
-		statusline+="%F{10}${symbols[origin]}%f"
+		statusline+="%F{2}${symbols[origin]}"
 	# no upstream
 	else
-		statusline+="%F{11}${symbols[local]}%f"
+		statusline+="%F{3}${symbols[local]}"
 	fi
 
 	# branch name
@@ -65,17 +65,17 @@ git_status() {
 
 	# staged
 	if [[ -n $(git diff --cached 2>/dev/null) ]]; then
-		statusline+="%F{10}${symbols[staged]}$(git diff --cached --numstat | line_count)%f"
+		statusline+="%F{2}${symbols[staged]}$(git diff --cached --numstat | line_count)%f"
 	fi
 
 	# modified
 	if [[ -n $(git diff 2>/dev/null) ]]; then
-		statusline+="%F{11}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
+		statusline+="%F{3}${symbols[change]}$(git diff-files --ignore-submodules --shortstat | sed -E 's/.* ([0-9]+) file.*/\1/')%f"
 	fi
 
 	# untracked
 	if [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]]; then
-		statusline+="%F{14}${symbols[untracked]}$(git ls-files --others --exclude-standard | line_count)%f"
+		statusline+="%F{6}${symbols[untracked]}$(git ls-files --others --exclude-standard | line_count)%f"
 	fi
 
 	# set final statusline to global variable
@@ -104,4 +104,4 @@ preexec() {
 }
 
 # prompt
-PROMPT=$'%F{blue}%~%1(j. (%j).)%f${GIT_STATUSLINE}%f\n%0(?..%F{red})> %f'
+PROMPT=$'%F{4}%~%1(j. (%j).)%f${GIT_STATUSLINE}%f\n%0(?..%F{1})> %f'
