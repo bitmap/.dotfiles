@@ -1,16 +1,15 @@
 #!/bin/zsh
 
-# ls
-alias ls="ls -F --color"
+# ls - platform-specific handling below
 alias lsa="ls -a"
 alias ll="ls -lh"
 alias lla="ls -lha"
 alias l=ll
 
-# i know what i'm doing
+# file operations
 alias rimraf="rm -rf"
 
-# nvim or else
+# editor
 alias v="$EDITOR"
 alias vi="$EDITOR"
 alias vim="$EDITOR"
@@ -22,10 +21,6 @@ alias tmuxa='tmux attach || tmux new-session'
 
 # vim-style quit
 alias :q="exit"
-
-# overrides
-alias cat="bat"
-alias top="btop"
 
 # fzf with preview
 alias ff="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
@@ -67,61 +62,36 @@ alias nx="npx nx"
 alias kgp="kubectl get pod"
 alias kdp="kubectl delete pod"
 alias k8logs="kubectl logs -f"
-k8clean() {
-	kubectl delete pod $(kubectl get pods | awk '/Evicted|ImagePullBackOff|Completed|CrashLoopBackOff|Error|OOMKilled|ContainerStatusUnknown/ {print $1}')
-}
-k8exec() {
-	kubectl exec --stdin --tty $1 -- /bin/sh
-}
-k8context() {
-	kubectl config get-contexts -o name | grep $1 --color='never' | xargs kubectl config use-context
-}
 
 # python aliases
 alias p="python3"
 alias python="python3"
 alias pip="pip3"
 
-# suffixed aliases
-alias -s js="node"
-alias -s ts="deno run"
-alias -s py="python3"
-alias -s git="git clone"
-
-# bulk association
-alias -s {md,json,css,html}=nvim
-
-# refresh zsh
-alias zrc="source $HOME/.zshrc && zsh"
-
-# mkdir && cd
-function mkcd() {
-    mkdir -p "$1" && cd "$1" || exit
-}
-
 # history
 alias hist="history 1"
-function hig() {
-    history 1 | grep -- "$@"
-}
 
-# macOS aliases
+# refresh zsh
+alias zrc="exec zsh"
+
+# macOS-specific aliases
 if [[ $(uname) == "Darwin" ]]; then
-	# use the GNU coreutils ls if available
-	gls -d . &>/dev/null 2>&1 && alias ls="gls -F --color" || alias ls="ls -FG"
+	# Use GNU coreutils ls if available, otherwise BSD ls
+	if gls -d . &>/dev/null 2>&1; then
+		alias ls="gls -F --color"
+	else
+		alias ls="ls -FG"
+	fi
 
-	# flush dns cache
+	# Flush DNS cache
 	alias flushdns="dscacheutil -flushcache"
 
-	# get ip address
+	# Get local IP address
 	alias ip="ipconfig getifaddr en0"
 
-	# force removal of quarantine attribute on unsigned executables
+	# Remove quarantine attribute
 	alias allow-run="xattr -d com.apple.quarantine"
-
-	# flush dns cache
-	alias flushdns="dscacheutil -flushcache"
-
-	# force removal of quarantine attribute on unsigned executables
-	alias allow-run="xattr -d com.apple.quarantine"
+else
+	# Linux and others - use GNU ls
+	alias ls="ls -F --color"
 fi

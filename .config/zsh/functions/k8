@@ -1,0 +1,34 @@
+# Kubernetes helper utilities
+# Usage: k8 <subcommand> [args]
+
+case "$1" in
+	clean)
+		# Delete failed/completed pods
+		kubectl delete pod $(kubectl get pods | awk '/Evicted|ImagePullBackOff|Completed|CrashLoopBackOff|Error|OOMKilled|ContainerStatusUnknown/ {print $1}')
+		;;
+	exec)
+		# Execute shell in pod
+		if [[ -z "$2" ]]; then
+			echo "Usage: k8 exec <pod-name>"
+			return 1
+		fi
+		kubectl exec --stdin --tty "$2" -- /bin/sh
+		;;
+	context)
+		# Switch context by pattern match
+		if [[ -z "$2" ]]; then
+			echo "Usage: k8 context <context-pattern>"
+			return 1
+		fi
+		kubectl config get-contexts -o name | grep "$2" --color='never' | xargs kubectl config use-context
+		;;
+	*)
+		echo "Usage: k8 <clean|exec|context> [args]"
+		echo ""
+		echo "Subcommands:"
+		echo "  clean              Delete failed/completed pods"
+		echo "  exec <pod>         Execute shell in pod"
+		echo "  context <pattern>  Switch context by pattern"
+		return 1
+		;;
+esac
