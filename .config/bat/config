@@ -1,4 +1,7 @@
---theme="Solarized (dark)"
+# automatic theme switching based on system
+--theme="auto:system"
+--theme-dark="Solarized (dark)"
+--theme-light="Solarized (light)"
 
 # show line numbers and git modifications
 --style="numbers,changes"

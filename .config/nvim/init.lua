@@ -74,9 +74,26 @@ local plugins = {
 		priority = 1000,
 		config = function()
 			vim.o.termguicolors = true
-			vim.o.background = "dark"
-			require("solarized").setup(opts)
-			vim.cmd.colorscheme("solarized")
+			require("solarized").setup()
+		end,
+	},
+	{
+		-- auto dark/light mode
+		"f-person/auto-dark-mode.nvim",
+		lazy = false,
+		priority = 999,
+		config = function()
+			require("auto-dark-mode").setup({
+				update_interval = 1000,
+				set_dark_mode = function()
+					vim.o.background = "dark"
+					vim.cmd.colorscheme("solarized")
+				end,
+				set_light_mode = function()
+					vim.o.background = "light"
+					vim.cmd.colorscheme("solarized")
+				end,
+			})
 		end,
 	},
 	{
