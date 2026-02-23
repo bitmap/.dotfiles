@@ -88,10 +88,32 @@ local plugins = {
 				set_dark_mode = function()
 					vim.o.background = "dark"
 					vim.cmd.colorscheme("solarized")
+					-- reload lualine with updated theme
+					pcall(function()
+						require("lualine").setup({
+							options = {
+								theme = "solarized",
+								section_separators = "",
+								component_separators = "",
+							},
+							sections = { lualine_c = { require("auto-session.lib").current_session_name } },
+						})
+					end)
 				end,
 				set_light_mode = function()
 					vim.o.background = "light"
 					vim.cmd.colorscheme("solarized")
+					-- reload lualine with updated theme
+					pcall(function()
+						require("lualine").setup({
+							options = {
+								theme = "solarized",
+								section_separators = "",
+								component_separators = "",
+							},
+							sections = { lualine_c = { require("auto-session.lib").current_session_name } },
+						})
+					end)
 				end,
 			})
 		end,
