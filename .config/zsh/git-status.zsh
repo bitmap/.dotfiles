@@ -3,8 +3,6 @@
 git_status() {
 	export GIT_STATUSLINE=""
 
-	! git rev-parse --is-inside-work-tree >/dev/null 2>&1 && return
-
 	local git_dir=$(git rev-parse --git-dir 2>/dev/null)
 
 	local -a status_lines
