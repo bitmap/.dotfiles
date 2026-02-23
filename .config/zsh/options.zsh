@@ -2,10 +2,9 @@
 
 # zsh options
 setopt prompt_subst # allow prompt expansion
-setopt glob # expand stuff to generate filenames
 setopt extendedglob # allow regex globbing
 setopt nocaseglob # case-insensitive globbing
-setopt autocd # better cd
+setopt autocd # cd to directory by typing its name
 setopt autopushd # auto add to dir stack
 setopt nobeep # shut up
 setopt numericglobsort # sort numerically
