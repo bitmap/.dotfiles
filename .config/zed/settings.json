@@ -121,7 +121,7 @@
   "when_closing_with_no_tabs": "close_window",
   "colorize_brackets": false,
   "show_whitespaces": "selection",
-  "show_edit_predictions": true,
+  "show_edit_predictions": false,
   "ensure_final_newline_on_save": true,
   "indent_guides": {
     "background_coloring": "disabled",
