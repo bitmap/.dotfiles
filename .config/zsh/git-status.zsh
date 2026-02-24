@@ -64,7 +64,7 @@ git_status() {
 	local -A symbols=(
 		[stash]='≡'
 		[bisect]='↔'
-		[cherrypick]='◈'
+		[cherrypick]='⊕'
 		[revert]='↶'
 		[rebase]='~'
 		[detached]='⚠'
@@ -110,7 +110,7 @@ git_status() {
 		statusline+="%F{3}${symbols[local]}"
 	fi
 
-	statusline+="%F{5}${branch}%f"
+	statusline+="%F{5}⎇ ${branch}%f"
 
 	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
 	[[ $staged_count -gt 0 ]] && statusline+="%F{2}${symbols[staged]}${staged_count}%f"
