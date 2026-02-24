@@ -74,7 +74,8 @@ git_status() {
 		[behind]='↓'
 		[ahead]='↑'
 		[forcepush]='⇡'
-		[merge]='!'
+		[merge]='M'
+		[conflict]='!'
 		[staged]='+'
 		[change]='*'
 		[untracked]='?'
@@ -91,7 +92,7 @@ git_status() {
 	elif [[ -d "$git_dir/rebase-merge" ]] || [[ -d "$git_dir/rebase-apply" ]]; then
 		statusline+="%F{1}${symbols[rebase]}"
 	elif [[ $merge_count -gt 0 ]]; then
-		statusline+="%F{1}${symbols[merge]}${merge_count}"
+		statusline+="%F{1}${symbols[merge]}"
 	elif [[ $branch == "(detached)" ]]; then
 		statusline+="%F{1}${symbols[detached]}"
 	elif [[ $ahead -gt 0 ]] && [[ $behind -gt 0 ]]; then
@@ -113,6 +114,7 @@ git_status() {
 	statusline+="%F{5}⎇ ${branch}%f"
 
 	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
+	[[ $merge_count -gt 0 ]] && statusline+="%F{1}${symbols[conflict]}${merge_count}%f"
 	[[ $staged_count -gt 0 ]] && statusline+="%F{2}${symbols[staged]}${staged_count}%f"
 	[[ $modified_count -gt 0 ]] && statusline+="%F{3}${symbols[change]}${modified_count}%f"
 	[[ $untracked_count -gt 0 ]] && statusline+="%F{6}${symbols[untracked]}${untracked_count}%f"
