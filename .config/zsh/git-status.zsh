@@ -17,6 +17,7 @@ git_status() {
 	local staged_count=0
 	local modified_count=0
 	local untracked_count=0
+	local force_push_needed=0
 
 	for line in $status_lines; do
 		case $line in
@@ -53,6 +54,13 @@ git_status() {
 		esac
 	done
 
+	# Check if force push is needed (remote is not an ancestor of HEAD)
+	if [[ $upstream_exists -eq 1 ]] && [[ $ahead -gt 0 ]]; then
+		if ! git merge-base --is-ancestor @{u} HEAD 2>/dev/null; then
+			force_push_needed=1
+		fi
+	fi
+
 	local -A symbols=(
 		[stash]='≡'
 		[bisect]='↔'
@@ -62,9 +70,10 @@ git_status() {
 		[detached]='⚠'
 		[origin]='✓'
 		[local]='•'
-		[diverged]='≠'
+		[diverged]='⇅'
 		[behind]='↓'
 		[ahead]='↑'
+		[forcepush]='⇡'
 		[merge]='!'
 		[staged]='+'
 		[change]='*'
@@ -86,11 +95,15 @@ git_status() {
 	elif [[ $branch == "(detached)" ]]; then
 		statusline+="%F{1}${symbols[detached]}"
 	elif [[ $ahead -gt 0 ]] && [[ $behind -gt 0 ]]; then
-		statusline+="%F{1}${symbols[diverged]}"
+		statusline+="%F{1}${symbols[diverged]}${ahead}/${behind}"
 	elif [[ $behind -gt 0 ]]; then
 		statusline+="%F{3}${symbols[behind]}${behind}"
 	elif [[ $ahead -gt 0 ]]; then
-		statusline+="%F{2}${symbols[ahead]}${ahead}"
+		if [[ $force_push_needed -eq 1 ]]; then
+			statusline+="%F{1}${symbols[forcepush]}${ahead}"
+		else
+			statusline+="%F{2}${symbols[ahead]}${ahead}"
+		fi
 	elif [[ $upstream_exists -eq 1 ]]; then
 		statusline+="%F{2}${symbols[origin]}"
 	else
