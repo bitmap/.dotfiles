@@ -90,7 +90,17 @@ git_status() {
 	elif [[ -f "$git_dir/REVERT_HEAD" ]]; then
 		statusline+="%F{1}${symbols[revert]}"
 	elif [[ -d "$git_dir/rebase-merge" ]] || [[ -d "$git_dir/rebase-apply" ]]; then
-		statusline+="%F{1}${symbols[rebase]}"
+		local rebase_progress=""
+		if [[ -f "$git_dir/rebase-merge/msgnum" ]] && [[ -f "$git_dir/rebase-merge/end" ]]; then
+			local current=$(cat "$git_dir/rebase-merge/msgnum")
+			local total=$(cat "$git_dir/rebase-merge/end")
+			rebase_progress="${current}/${total}"
+		elif [[ -f "$git_dir/rebase-apply/next" ]] && [[ -f "$git_dir/rebase-apply/last" ]]; then
+			local current=$(cat "$git_dir/rebase-apply/next")
+			local total=$(cat "$git_dir/rebase-apply/last")
+			rebase_progress="${current}/${total}"
+		fi
+		statusline+="%F{1}${symbols[rebase]}${rebase_progress}"
 	elif [[ $merge_count -gt 0 ]]; then
 		statusline+="%F{1}${symbols[merge]}"
 	elif [[ $branch == "(detached)" ]]; then
