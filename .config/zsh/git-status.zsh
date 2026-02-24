@@ -82,13 +82,14 @@ git_status() {
 	)
 
 	local -a statusline=("")
+	local branch_status=""
 
 	if [[ -f "$git_dir/BISECT_LOG" ]]; then
-		statusline+="%F{1}${symbols[bisect]}"
+		branch_status="%F{1}${symbols[bisect]}%f"
 	elif [[ -f "$git_dir/CHERRY_PICK_HEAD" ]]; then
-		statusline+="%F{1}${symbols[cherrypick]}"
+		branch_status="%F{1}${symbols[cherrypick]}%f"
 	elif [[ -f "$git_dir/REVERT_HEAD" ]]; then
-		statusline+="%F{1}${symbols[revert]}"
+		branch_status="%F{1}${symbols[revert]}%f"
 	elif [[ -d "$git_dir/rebase-merge" ]] || [[ -d "$git_dir/rebase-apply" ]]; then
 		local rebase_progress=""
 		if [[ -f "$git_dir/rebase-merge/msgnum" ]] && [[ -f "$git_dir/rebase-merge/end" ]]; then
@@ -100,28 +101,28 @@ git_status() {
 			local total=$(cat "$git_dir/rebase-apply/last")
 			rebase_progress="${current}/${total}"
 		fi
-		statusline+="%F{1}${symbols[rebase]}${rebase_progress}"
+		branch_status="%F{1}${symbols[rebase]}${rebase_progress}%f"
 	elif [[ $merge_count -gt 0 ]]; then
-		statusline+="%F{1}${symbols[merge]}"
+		branch_status="%F{1}${symbols[merge]}%f"
 	elif [[ $branch == "(detached)" ]]; then
-		statusline+="%F{1}${symbols[detached]}"
+		branch_status="%F{1}${symbols[detached]}%f"
 	elif [[ $ahead -gt 0 ]] && [[ $behind -gt 0 ]]; then
-		statusline+="%F{1}${symbols[diverged]}${ahead}/${behind}"
+		branch_status="%F{1}${symbols[diverged]}${ahead}/${behind}%f"
 	elif [[ $behind -gt 0 ]]; then
-		statusline+="%F{3}${symbols[behind]}${behind}"
+		branch_status="%F{3}${symbols[behind]}${behind}%f"
 	elif [[ $ahead -gt 0 ]]; then
 		if [[ $force_push_needed -eq 1 ]]; then
-			statusline+="%F{1}${symbols[forcepush]}${ahead}"
+			branch_status="%F{1}${symbols[forcepush]}${ahead}%f"
 		else
-			statusline+="%F{2}${symbols[ahead]}${ahead}"
+			branch_status="%F{2}${symbols[ahead]}${ahead}%f"
 		fi
 	elif [[ $upstream_exists -eq 1 ]]; then
-		statusline+="%F{2}${symbols[origin]}"
+		branch_status="%F{2}${symbols[origin]}%f"
 	else
-		statusline+="%F{3}${symbols[local]}"
+		branch_status="%F{3}${symbols[local]}%f"
 	fi
 
-	statusline+="%F{5}⎇ ${branch}%f"
+	statusline+="%F{5}${branch}%f(${branch_status})"
 
 	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
 	[[ $merge_count -gt 0 ]] && statusline+="%F{1}${symbols[conflict]}${merge_count}%f"
