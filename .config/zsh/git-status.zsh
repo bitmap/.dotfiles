@@ -17,6 +17,8 @@ git_status() {
 	local staged_count=0
 	local modified_count=0
 	local untracked_count=0
+	local renamed_count=0
+	local submodule_count=0
 	local force_push_needed=0
 
 	for line in $status_lines; do
@@ -47,9 +49,13 @@ git_status() {
 				local xy=${line:2:2}
 				[[ $xy[1] != "." ]] && ((staged_count++))
 				[[ $xy[2] != "." ]] && ((modified_count++))
+				((renamed_count++))
 				;;
 			"? "*)
 				((untracked_count++))
+				;;
+			"S "*)
+				((submodule_count++))
 				;;
 		esac
 	done
@@ -79,6 +85,8 @@ git_status() {
 		[staged]='+'
 		[change]='*'
 		[untracked]='?'
+		[renamed]='→'
+		[submodule]='⊙'
 	)
 
 	local -a statusline=("")
@@ -127,8 +135,10 @@ git_status() {
 	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
 	[[ $merge_count -gt 0 ]] && statusline+="%F{1}${symbols[conflict]}${merge_count}%f"
 	[[ $staged_count -gt 0 ]] && statusline+="%F{2}${symbols[staged]}${staged_count}%f"
+	[[ $renamed_count -gt 0 ]] && statusline+="%F{2}${symbols[renamed]}${renamed_count}%f"
 	[[ $modified_count -gt 0 ]] && statusline+="%F{3}${symbols[change]}${modified_count}%f"
 	[[ $untracked_count -gt 0 ]] && statusline+="%F{6}${symbols[untracked]}${untracked_count}%f"
+	[[ $submodule_count -gt 0 ]] && statusline+="%F{5}${symbols[submodule]}${submodule_count}%f"
 
 	GIT_STATUSLINE=${(j: :)statusline}
 }
