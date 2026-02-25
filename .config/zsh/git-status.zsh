@@ -122,7 +122,7 @@ git_status() {
 		branch_status="%F{3}${symbols[local]}%f"
 	fi
 
-	statusline+="%F{5}${branch}%f(${branch_status})"
+	statusline+="${branch_status} %F{5}${branch}%f"
 
 	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
 	[[ $merge_count -gt 0 ]] && statusline+="%F{1}${symbols[conflict]}${merge_count}%f"
