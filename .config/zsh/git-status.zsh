@@ -132,13 +132,13 @@ git_status() {
 
 	statusline+="${branch_status} %F{5}${branch}%f"
 
-	[[ $stash_count -gt 0 ]] && statusline+="${symbols[stash]}${stash_count}%f"
+	[[ $stash_count -gt 0 ]] && statusline+="%F{7}${symbols[stash]}${stash_count}%f"
 	[[ $merge_count -gt 0 ]] && statusline+="%F{1}${symbols[conflict]}${merge_count}%f"
 	[[ $staged_count -gt 0 ]] && statusline+="%F{2}${symbols[staged]}${staged_count}%f"
-	[[ $renamed_count -gt 0 ]] && statusline+="%F{2}${symbols[renamed]}${renamed_count}%f"
+	[[ $renamed_count -gt 0 ]] && statusline+="%F{4}${symbols[renamed]}${renamed_count}%f"
 	[[ $modified_count -gt 0 ]] && statusline+="%F{3}${symbols[change]}${modified_count}%f"
 	[[ $untracked_count -gt 0 ]] && statusline+="%F{6}${symbols[untracked]}${untracked_count}%f"
-	[[ $submodule_count -gt 0 ]] && statusline+="%F{5}${symbols[submodule]}${submodule_count}%f"
+	[[ $submodule_count -gt 0 ]] && statusline+="%F{7}${symbols[submodule]}${submodule_count}%f"
 
 	GIT_STATUSLINE=${(j: :)statusline}
 }
