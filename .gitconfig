@@ -58,12 +58,23 @@
 	current = 3 reverse
 	local = 3
 	remote = 6
+	upstream = 6
 [color "status"]
 	added = 2
 	changed = 3
 	untracked = 6
 	unmerged = 1
 	branch = 5
+	renamed = 4
+	localBranch = 5
+	remoteBranch = 13
+[color "decorate"]
+	branch = 3
+	remoteBranch = 6
+	tag = 2
+	stash = 7
+	HEAD = 1 bold
+	grafted = 1
 
 # aliases
 [alias]
