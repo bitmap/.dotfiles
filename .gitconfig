@@ -15,6 +15,11 @@
 	gpgsign = true
 [pull]
 	rebase = true
+[rebase]
+	autosquash = true
+	autostash = true
+[fetch]
+	prune = true
 [push]
 	default = simple
 [rerere]
@@ -39,6 +44,8 @@
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
+	colorMovedWS = allow-indentation-change
+	algorithm = histogram
 
 # logging
 [log]
@@ -87,6 +94,7 @@
 	uncommit = reset --soft HEAD^
 	fucked = reset --hard HEAD
 	hoard = stash --include-untracked
+	fixup = commit --fixup
 	lg = -c core.pager='less -S' log --color --graph --decorate --pretty=shortlog --abbrev-commit
 	last = log --abbrev-commit HEAD^..HEAD
 	upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
