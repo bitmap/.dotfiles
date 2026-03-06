@@ -9,14 +9,8 @@ alias l=ll
 # file operations
 alias rimraf="rm -rf"
 
-# editor
-alias v="$EDITOR"
-alias vi="$EDITOR"
-alias vim="$EDITOR"
-alias nvim="$EDITOR"
-
 # tmux
-alias tmux="tmux -2 -f '$XDG_CONFIG_HOME/tmux/tmux.conf'"
+alias tmux="tmux -2 -f '$HOME/.config/tmux/tmux.conf'"
 alias tmuxa='tmux attach || tmux new-session'
 
 # vim-style quit
@@ -61,7 +55,7 @@ alias nx="npx nx"
 # k8s aliases
 alias kgp="kubectl get pod"
 alias kdp="kubectl delete pod"
-alias k8logs="kubectl logs -f"
+alias kl="kubectl logs -f"
 
 # python aliases
 alias p="python3"

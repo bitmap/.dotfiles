@@ -1,35 +1,19 @@
-#!/bin/zsh
-
-# XDG directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
 # PATH
 export PATH="$HOME/bin:$PATH"
 
 # History
-export HISTFILE="$XDG_CACHE_HOME/zsh_history"
-export HISTFILESIZE=1000000
-export HISTSIZE=1000000
+export SAVEHIST=100000
+export HISTSIZE=100000
 
 # ZSH
 export ZLE_RPROMPT_INDENT=0
 
 # Editor
-if hash nvim 2>/dev/null; then
-	export EDITOR="nvim"
-	export MANPAGER='nvim +Man!'
-elif hash vim 2>/dev/null; then
-	export EDITOR="vim"
-else
-	export EDITOR="vi"
-fi
-
+export EDITOR=nvim
 export VISUAL=$EDITOR
 
 # Pager
+export MANPAGER='nvim +Man!'
 export PAGER="less"
 export LESS='-RFXn'
 export LESS_TERMCAP_mb=$'\E[1;31m'

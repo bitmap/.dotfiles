@@ -1,12 +1,12 @@
 # Source config files
-source "$XDG_CONFIG_HOME/zsh/options.zsh"
-source "$XDG_CONFIG_HOME/zsh/plugins.zsh"
-source "$XDG_CONFIG_HOME/zsh/aliases.zsh"
-source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
+source "$HOME/.config/zsh/options.zsh"
+source "$HOME/.config/zsh/plugins.zsh"
+source "$HOME/.config/zsh/aliases.zsh"
+source "$HOME/.config/zsh/prompt.zsh"
 
 # Load functions directory
-fpath=("$XDG_CONFIG_HOME/zsh/functions" $fpath)
-autoload -Uz $XDG_CONFIG_HOME/zsh/functions/*(N.:t)
+fpath=("$HOME/.config/zsh/functions" $fpath)
+autoload -Uz $HOME/.config/zsh/functions/*(N.:t)
 
 # Activate mise
 if test -f "$HOME/.local/bin/mise"; then
