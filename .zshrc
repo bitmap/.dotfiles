@@ -18,6 +18,11 @@ if hash fzf 2>/dev/null; then
 	source <(fzf --zsh)
 fi
 
+# Setup zoxide
+if hash zoxide 2>/dev/null; then
+	eval "$(zoxide init zsh)"
+fi
+
 # Load local zshrc file
 if [[ -e "$HOME/.zshrc_local" ]]; then
 	source "$HOME/.zshrc_local"

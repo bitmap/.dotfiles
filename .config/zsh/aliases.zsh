@@ -9,6 +9,9 @@ alias l=ll
 # file operations
 alias rimraf="rm -rf"
 
+# pretty print the path
+alias path='echo -e ${PATH//:/\\n}'
+
 # tmux
 alias tmux="tmux -2 -f '$HOME/.config/tmux/tmux.conf'"
 alias tmuxa='tmux attach || tmux new-session'
@@ -88,4 +91,9 @@ if [[ $(uname) == "Darwin" ]]; then
 else
 	# Linux and others - use GNU ls
 	alias ls="ls -F --color"
+fi
+
+# Include custom aliases
+if [[ -f $HOME/.aliases.local ]]; then
+  source $HOME/.aliases.local
 fi
