@@ -7,10 +7,22 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "diff_view_style": "unified",
+  "outline_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
   "theme": {
-    "mode": "system",
-    "light": "Solarized Light",
-    "dark": "Solarized Dark",
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark",
   },
   "scrollbar": {
     "diagnostics": "all",
@@ -18,7 +30,11 @@
   "prettier": {
     "allowed": true,
   },
-  "icon_theme": "Zed (Default)",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
   "message_editor": {
     "auto_replace_emoji_shortcode": false,
   },
@@ -32,11 +48,14 @@
   },
   "disable_ai": false,
   "agent": {
+    "dock": "right",
+    "show_turn_stats": true,
     "enable_feedback": false,
     "button": true,
     "model_parameters": [],
   },
   "collaboration_panel": {
+    "dock": "left",
     "button": false,
   },
   "inline_code_actions": false,
@@ -54,7 +73,6 @@
     "show_onboarding_banner": false,
     "show_project_items": true,
     "show_branch_name": true,
-    "show_branch_icon": true,
   },
   "search": {
     "button": true,
@@ -77,12 +95,13 @@
     "min_line_number_digits": 3,
   },
   "terminal": {
+    "font_weight": 400.0,
+    "font_family": "Menlo",
+    "line_height": "standard",
     "toolbar": {
       "breadcrumbs": false,
     },
     "dock": "right",
-    "font_size": 15.0,
-    "font_family": "Menlo",
   },
   "telemetry": {
     "diagnostics": false,
@@ -119,7 +138,7 @@
   },
   "max_tabs": 12,
   "when_closing_with_no_tabs": "close_window",
-  "colorize_brackets": false,
+  "colorize_brackets": true,
   "show_whitespaces": "selection",
   "show_edit_predictions": false,
   "ensure_final_newline_on_save": true,
