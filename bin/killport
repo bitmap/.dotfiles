@@ -1,3 +1,17 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-lsof -n -i4TCP:"$1" | grep LISTEN | tr -s " " | cut -f 2 -d " " | xargs kill -9;
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") <port>" >&2
+    exit 1
+fi
+
+pids=$(lsof -nP -iTCP:"$1" -sTCP:LISTEN -t || true)
+
+if [ -z "$pids" ]; then
+    echo "No process listening on port $1" >&2
+    exit 1
+fi
+
+# shellcheck disable=SC2086
+kill $pids
