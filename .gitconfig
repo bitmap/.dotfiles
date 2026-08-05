@@ -102,6 +102,7 @@
 	pushup = !~/.config/git/scripts/pushup.sh
 	prune-merged = !~/.config/git/scripts/prune-branches.sh
 	prune-squashed = !~/.config/git/scripts/prune-squashed.sh
+	rename = branch -m
 
 # set options on a per-machine basis via include files
 [include]
