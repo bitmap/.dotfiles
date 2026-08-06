@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") <hostname>" >&2
+    exit 1
+fi
+
+URL=$1
+
+sudo tee -a /etc/hosts >/dev/null <<EOF
+127.0.0.1 $URL
+::1       $URL
+EOF
