@@ -25,7 +25,8 @@ precmd() {
 
 preexec() {
 	# set tab title to current dir and process
-	print -Pn "\e]0;%1~ ($1)\a"
+	local dir=${(%):-%1~}
+	printf '\e]0;%s (%s)\a' "$dir" "$1"
 }
 
 # prompt
