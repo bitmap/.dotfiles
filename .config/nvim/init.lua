@@ -51,6 +51,8 @@ vim.opt.completeopt = "menuone,noselect"
 vim.cmd([[ aunmenu PopUp.How-to\ disable\ mouse ]])
 vim.cmd([[ aunmenu PopUp.-1- ]])
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- plugins
 local plugins = {
 	{
@@ -61,61 +63,19 @@ local plugins = {
 		},
 		config = function()
 			require("auto-session").setup({
-				auto_save_enabled = true,
-				auto_restore_enabled = true,
-				auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+				auto_restore = true,
+				auto_save = true,
+				suppressed_dirs = { "~/", "~/Downloads", "/" },
 			})
 		end,
 	},
 	{
-		-- theme
-		"maxmx03/solarized.nvim",
+		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
+		opts = {},
 		config = function()
-			vim.o.termguicolors = true
-			require("solarized").setup()
-		end,
-	},
-	{
-		-- auto dark/light mode
-		"f-person/auto-dark-mode.nvim",
-		lazy = false,
-		priority = 999,
-		config = function()
-			require("auto-dark-mode").setup({
-				update_interval = 1000,
-				set_dark_mode = function()
-					vim.o.background = "dark"
-					vim.cmd.colorscheme("solarized")
-					-- reload lualine with updated theme
-					pcall(function()
-						require("lualine").setup({
-							options = {
-								theme = "solarized",
-								section_separators = "",
-								component_separators = "",
-							},
-							sections = { lualine_c = { require("auto-session.lib").current_session_name } },
-						})
-					end)
-				end,
-				set_light_mode = function()
-					vim.o.background = "light"
-					vim.cmd.colorscheme("solarized")
-					-- reload lualine with updated theme
-					pcall(function()
-						require("lualine").setup({
-							options = {
-								theme = "solarized",
-								section_separators = "",
-								component_separators = "",
-							},
-							sections = { lualine_c = { require("auto-session.lib").current_session_name } },
-						})
-					end)
-				end,
-			})
+			vim.cmd([[colorscheme tokyonight]]) -- Load the theme here
 		end,
 	},
 	{
@@ -168,7 +128,7 @@ local plugins = {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "solarized",
+					theme = "tokyonight",
 					section_separators = "",
 					component_separators = "",
 				},
@@ -251,7 +211,7 @@ local plugins = {
 			-- notifications
 			{ "j-hui/fidget.nvim", opts = {} },
 			-- snippets
-			{ "L3MON4D3/LuaSnip" },
+			-- { "L3MON4D3/LuaSnip" },
 		},
 		config = function()
 			-- setup LSP
@@ -282,7 +242,7 @@ local plugins = {
 					"stylelint_lsp",
 					"eslint",
 					"marksman",
-					"tsserver",
+					"ts_ls",
 					"clangd",
 					"gopls",
 					"pyright",
