@@ -1,4 +1,4 @@
 deno        latest
-golang      prefix:1.22
+golang      prefix:1.27
 nodejs      lts
 python      3
