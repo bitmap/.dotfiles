@@ -60,6 +60,7 @@ alias nx="npx nx"
 alias kgp="kubectl get pod"
 alias kdp="kubectl delete pod"
 alias kl="kubectl logs -f"
+alias kexec="kubectl exec --stdin --tty"
 
 # python aliases
 alias p="python3"
